@@ -1,5 +1,5 @@
 (function () {
-    const sammyApp = Sammy('#content', function () {
+    const sammyApp = Sammy('#root', function () {
 
         // localhost:3000/#/
         this.get('#/', homeController.getAllVehicle);
