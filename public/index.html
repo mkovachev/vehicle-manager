@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title></title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
-    </head>
-    <body>
-    
-    <script src="node_modules/jquery/dist/jquery.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="node_modules/sammy/lib/sammy.js"></script>
-<script src="node_modules/handlebars/dist/handlebars.js"></script>
 
+<head>
+    <meta charset="UTF-8">
+    <title>vehicle manager</title>
+    <link rel="stylesheet" href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
 
-    </body>
+</head>
+
+<body>
+    <div id="root">
+        <header class="header-container">
+            <nav class="navi">
+                <ul class="navi menu">
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#/mycars">MyCars</a></li>
+                    <li><a href="#/events">Events</a></li>
+                    <li><a href="#/reports">Reports</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+
+    <!-- Libs -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/sammy/lib/sammy.js"></script>
+    <script src="bower_components/handlebars/handlebars.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/izitoast/dist/js/iziToast.js"></script>
+
+    <!-- App -->
+
+    <!-- App: Controllers -->
+
+    <!-- App: Start -->
+    <script src='app.js'></script>
+
+</body>
+
 </html>

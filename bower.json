@@ -1,0 +1,27 @@
+{
+  "name": "vehicle manager",
+  "homepage": "https://github.com/mkovachev/Catoblepas",
+  "authors": [
+    "mkovachev",
+    "rmehmed",
+    "nstanchev"
+  ],
+  "description": "manage your vehicle fleet",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "sammy": "^0.7.6",
+    "jquery": "^3.2.1",
+    "bootstrap": "boostrap#^3.3.7",
+    "handlebars": "^4.0.5",
+    "izitoast": "^1.1.2"
+  }
+}
