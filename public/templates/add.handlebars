@@ -1,10 +1,24 @@
-<div id="add" class="add-container">
-    <form method="POST" id="addForm" action="">
-        Category:
-        <input type="text" name="Category"><br> Model:
-        <input type="text" name="Model"> <br> Year of manufacture:
-        <input type="date" name="Year of manufacture" min="1925-01-01" max="2017-04-30"> <br> Price:
-        <input type="number" name="Price" min="0" max="300000" step="100"> <br>
-        <button class="addBtn" type="button">Add</button>
-    </form>
+<h1>Add Vehicle</h1>
+<div class="form-group">
+    <label for="tb-category">Category:</label>
+    <input id="tb-category" class="form-control">
+</div>
+
+<div class="form-group">
+    <label for="tb-model">Model:</label>
+    <input id="tb-model" class="form-control">
+</div>
+
+<div class="form-group">
+    <label for="tb-yearofmanufacture:">Year of manufacture::</label>
+    <input id="tb-yearofmanufacture" type="date" min="1925-01-01" max="2017-04-30" class="form-control">
+</div>
+
+<div class="form-group">
+    <label for="tb-model">Price:</label>
+    <input id="tb-model" type="number" min="1000" max="1000000" class="form-control">
+</div>
+
+<div class="form-group">
+    <button type="button" class="btn btn-info">Add</button>
 </div>
