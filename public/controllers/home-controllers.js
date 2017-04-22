@@ -1,12 +1,12 @@
 const homeController = (function() {
-  function getAllVehicle(context) {
+  function getOverview(context) {
     templates.get("home").then(function(template) {
       context.$element().html(template());
     });
   }
 
   return {
-    getAllVehicle: getAllVehicle
+    getOverview: getOverview
   };
 })();
 

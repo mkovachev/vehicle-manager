@@ -1,10 +1,10 @@
 (function() {
   const sammyApp = Sammy("#root-container", function() {
-    this.get("#/", homeController.getAllVehicle);
+    this.get("#/", homeController.getOverview);
     this.get("#/addvehicle", addController.addVehicle);
-    this.get("#/mycars");
-    this.get("#/events");
-    this.get("#/reports");
+    this.get("#/mycars", myCarsController.getAllVehicles);
+    this.get("#/events", eventsController.getAllEvents);
+    this.get("#/reports", reportsController.getReport);
   });
 
   $(function() {
