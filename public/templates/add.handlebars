@@ -1,19 +1,11 @@
 <div id="add" class="add-container">
-    <form method="POST" id="addForm"></form>
+    <form method="POST" id="addForm" action="">
+        Category:
+        <input type="text" name="Category"><br> Model:
+        <input type="text" name="Model"> <br> Year of manufacture:
+        <input type="date" name="Year of manufacture" min="1925-01-01" max="2017-04-30"> <br> Price:
+        <input type="number" name="Price" min="0" max="300000" step="100"> <br>
+        <button type="button">Add</button>
+    </form>
 
-    <table>
-        <thead>
-            <tr></tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input type="text" form="addForm">
-                </td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <button type="button" form="addForm">Add</button>
-        </tfoot>
-    </table>
 </div>
