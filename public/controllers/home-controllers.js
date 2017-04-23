@@ -1,12 +1,13 @@
-const homeController = (function() {
+const homeController = (function () {
   function getOverview(context) {
-    templates.get("home").then(function(template) {
-      context.$element().html(template());
-    });
+    templates.get("home")
+      .then(function (template) {
+        context.$element().html(template());
+      });
   }
 
   return {
-    getOverview: getOverview
+    getOverview
   };
 })();
 
