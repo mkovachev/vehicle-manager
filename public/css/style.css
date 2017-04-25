@@ -36,10 +36,17 @@
   color: #fff;
 }
 
-
 .login-registration-form, .welcome{
 text-align: center;
 margin: auto;
-width: 50%;
+}
 
+#add-box{
+  height: 550px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
