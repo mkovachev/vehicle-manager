@@ -1,9 +1,6 @@
 (function () {
   const sammyApp = Sammy("#root", function () {
-<<<<<<< HEAD:public/app.js
     this.get("#/landing", landingController.registerOrLogin);
-=======
->>>>>>> c4c6a1b1e972e2b950aba5ec1a2c6d2490d381cb:public/sammyRouter.js
     this.get("#/", homeController.getOverview);
     this.get("#/addvehicle", addController.addVehicle);
     this.get("#/mygarage", myGarageController.getAllVehicles);
@@ -15,7 +12,7 @@
   $(function () {
     sammyApp.run("#/");
   });
-<<<<<<< HEAD:public/app.js
+
 })();
 
 
@@ -29,8 +26,4 @@ setInterval("upgradeMDL();", 100);
 function upgradeMDL() {
   componentHandler.upgradeDom();
 
-}
-
-=======
-})();
->>>>>>> c4c6a1b1e972e2b950aba5ec1a2c6d2490d381cb:public/sammyRouter.js
+};
