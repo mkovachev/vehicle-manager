@@ -1,19 +1,24 @@
 {
-  "name": "catoblepas",
+  "name": "loginapp",
   "version": "1.0.0",
-  "description": "Teamwork Catoblepas JS apps 2017",
+  "description": "Simple authentication system",
   "main": "app.js",
-  "author": "",
-  "license": "MIT",
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "express": "^4.15.2",
-    "handlebars": "^4.0.6",
-    "izitoast": "^1.1.1",
-    "jquery": "^3.2.1",
-    "sammy": "^0.7.6"
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "devDependencies": {
-    "dep-linker": "^1.0.24"
+  "author": "Brad Traversy",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "*",
+    "body-parser": "*",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
+    "express": "*",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "mongodb": "*",
+    "mongoose": "*"
   }
 }
