@@ -21,8 +21,10 @@ var app = express();
 // View Engine
 //app.set('views', path.join(__dirname, 'views'));
 app.use(express.static('views'));
+app.use(express.static('public'));
+
 app.engine('handlebars', exphbs({
-  defaultLayout: 'landing'
+  defaultLayout: 'index'
 }));
 app.set('view engine', 'handlebars');
 
@@ -31,9 +33,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
-
-// set static
-app.use(express.static('public'));
 
 
 app.use('/', routes);

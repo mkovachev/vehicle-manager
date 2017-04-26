@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
-// landing
+// home
 router.get('/', function (req, res) {
-	res.render('home');
+	res.render('index');
 });
 
 

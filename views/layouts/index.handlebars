@@ -12,36 +12,36 @@
 
 </head>
 <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-    <header class="mdl-layout__header mdl-layout__header--transparent">
-        <div class="mdl-layout__header-row">
-            <!-- Title -->
-            <a href="/" class="logo ">
-                <span>The Garage App</span>
-            </a>
-            <!-- Add spacer, to align navigation to the right -->
-            <div class="mdl-layout-spacer"></div>
-            <!-- Navigation -->
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="/">Home</a>
-                <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                <a class="mdl-navigation__link" href="">Overview</a>
-                <a class="mdl-navigation__link" href="">Logout</a>
-            </nav>
-        </div>
-    </header>
-    <!-- Side Navigation -->
-    <div class="mdl-layout__drawer">
-        <span class="mdl-layout-title">Title</span>
-        <nav class="mdl-navigation">
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-            <a class="mdl-navigation__link" href="">Link</a>
-        </nav>
+  <header class="mdl-layout__header mdl-layout__header--transparent">
+    <div class="mdl-layout__header-row">
+      <!-- Title -->
+      <a href="/" class="logo ">
+        <span>The Garage App</span>
+      </a>
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+        {{#if user}}
+        <a class="mdl-navigation__link" href="/">Home</a>
+        <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+        <a class="mdl-navigation__link" href="/users/logout">Logout</a>
+      </nav>
     </div>
-    <!-- Main Content Start -->
-    <main class="mdl-layout__content">
-    </main>
+  </header>
+  <!-- Side Navigation -->
+  <div class="mdl-layout__drawer">
+    <span class="mdl-layout-title">Title</span>
+    <nav class="mdl-navigation">
+      <a class="mdl-navigation__link" href="/">Home</a>
+      <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+      <a class="mdl-navigation__link" href="/users/logout">Logout</a>
+    </nav>
+  </div>
+  {{else}} {{/if}}
+  <!-- Main Content Start -->
+  <main class="mdl-layout__content">
+  </main>
 </div>
 <div class="welcome">
   <h1>Welcome to</h1>
@@ -59,14 +59,14 @@
 
     <div class="mdl-card__supporting-text">
       Please login to access your account information.
-      <form action="#">
+      <form>
         <div class="mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" id="login-username">
           <label class="mdl-textfield__label" for="login-username">Username:</label>
         </div>
       </form>
 
-      <form action="#">
+      <form>
         <div class="mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="password" id="login-password">
           <label class="mdl-textfield__label" for="login-password">Password:</label>
@@ -88,19 +88,35 @@
 
     <div class="mdl-card__supporting-text">
       Register to the Garage in order to manage your vehicles.
-      <form action="#">
-        <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="username">
-          <label class="mdl-textfield__label" for="username">Username:</label>
-        </div>
       </form>
-
-      <form action="#">
+      <form>
         <div class="mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="password" id="password">
-          <label class="mdl-textfield__label" for="password">Password:</label>
+          <input class="mdl-textfield__input" type="tex " id="name">
+          <label class="mdl-textfield__label" for="username ">Name:</label>
         </div>
-      </form>
+        <form>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text " id="email">
+            <label class="mdl-textfield__label" for="username ">Email:</label>
+          </div>
+        </form>
+        <form>
+          <div class="mdl-textfield mdl-js-textfield">
+            <input class="mdl-textfield__input" type="text" id="username">
+            <label class="mdl-textfield__label" for="username ">Username:</label>
+          </div>
+          <form>
+            <div class="mdl-textfield mdl-js-textfield">
+              <input class="mdl-textfield__input" type="password" id="password ">
+              <label class="mdl-textfield__label" for="password">Password:</label>
+            </div>
+          </form>
+          <form>
+            <div class="mdl-textfield mdl-js-textfield ">
+              <input class="mdl-textfield__input" type="password" id="password">
+              <label class="mdl-textfield__label" for="password">Confirm Password:</label>
+            </div>
+          </form>
     </div>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">

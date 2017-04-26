@@ -6,22 +6,26 @@ var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
 
 // Register
-router.get('/register', function (req, res) {
-	res.render('register');
+router.get('/', function (req, res) {
+	res.render('index');
 });
 
 // Login
-router.get('/login', function (req, res) {
-	res.render('landing');
+router.get('/', function (req, res) {
+	res.render('index');
 });
 
 // Register User
-router.post('/register', function (req, res) {
+router.post('/', function (req, res) {
+	var name = req.body.name;
+	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
 	var newUser = new User({
+		name: name,
+		email: email,
 		username: username,
 		password: password
 	});
@@ -31,7 +35,7 @@ router.post('/register', function (req, res) {
 		console.log(user);
 	});
 
-	console.log((`You are registered successfully, please login`));
+	console.log(`You are registered successfully, please login`);
 
 	res.redirect('/');
 });
