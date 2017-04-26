@@ -1,42 +1,37 @@
 var express = require('express');
-var path = require('path');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 
-
-
+// set MongoDB
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/garage');
 var db = mongoose.connection;
 
-// set route handler
-var routes = require('./routes/homeRouter');
-var users = require('./routes/usersRouter');
 
 // Init App
 var app = express();
 
-// View Engine
-//app.set('views', path.join(__dirname, 'views'));
-app.use(express.static('views'));
+// set static folders
 app.use(express.static('public'));
+app.use(express.static('views'));
 
+// set view engine
 app.engine('handlebars', exphbs({
-  defaultLayout: 'index'
+  defaultLayout: 'home'
 }));
 app.set('view engine', 'handlebars');
 
-// BodyParser Middleware
+// bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-
-app.use('/', routes);
-app.use('/users', users);
+// set routes handlers
+var home = require('./routes/homeRouter');
+app.use('/', home);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

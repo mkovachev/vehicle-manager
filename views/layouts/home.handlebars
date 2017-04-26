@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Vehicle Manager</title>
+</head>
+
+<body>
+  <div>
+    {{#if user}}
+    <!-- Menu bar -->
+    <div>
+      <nav>
+        <ul>
+          <li><a href="/mygarage">My Garage</a></li>
+          <li><a href="/users/logout">Logout</a> </li>
+        </ul>
+      </nav>
+      <!-- put fav here -->
+    </div>
+    {{else}}
+    <!-- Login form -->
+    <h2>Login</h2>
+    <form method="get" action="/"> <!-- change to post -->
+      <div>
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Username">
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Password">
+      </div>
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Register form-->
+    <h2>Register</h2>
+    <form method="post" action="/">
+      <div>
+        <label>Username</label>
+        <input type="text" placeholder="Username" name="username">
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" placeholder="Email" name="email">
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" placeholder="Password" name="password">
+      </div>
+      <div>
+        <label>Confirm Password</label>
+        <input type="password" placeholder="Password" name="password2">
+      </div>
+      <button type="submit">Register</button>
+    </form>
+    {{/if}}
+    <footer class="footer">
+      <p>&copy;Garage 2017</p>
+    </footer>
+  </div>
+</body>
+
+</html>

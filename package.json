@@ -1,12 +1,11 @@
 {
   "name": "garage",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "manage your vehicle fleet",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server"
   },
-  "author": "",
+  "author": "Teamwork Catoblepas",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "*",
