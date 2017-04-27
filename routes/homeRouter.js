@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 
 var User = require('../models/user');
 
@@ -27,6 +25,10 @@ router.post('/', function (req, res) {
 		if (err) throw err;
 		console.log(user);
 	});
+
+	//toastr.success('You are registered, please login', {
+	//	timeOut: 5000
+	//});
 
 	res.redirect('/');
 });

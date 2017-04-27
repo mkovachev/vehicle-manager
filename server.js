@@ -9,7 +9,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/garage');
 var db = mongoose.connection;
 
-
 // Init App
 var app = express();
 
