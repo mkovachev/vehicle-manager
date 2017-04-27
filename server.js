@@ -14,7 +14,6 @@ const app = express();
 
 // set static folders
 app.use(express.static('public'));
-app.use(express.static('views'));
 
 // set view engine
 app.engine('handlebars', exphbs({
