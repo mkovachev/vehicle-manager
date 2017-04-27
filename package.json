@@ -8,14 +8,14 @@
   "author": "Teamwork Catoblepas",
   "license": "MIT",
   "dependencies": {
-    "bcryptjs": "*",
-    "body-parser": "*",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
     "express": "*",
-    "express-handlebars": "*",
+    "express-handlebars": "^3.0.0",
     "izitoast": "^1.1.1",
     "jquery": "^3.2.1",
-    "mongodb": "*",
-    "mongoose": "*",
+    "mongodb": "^2.2.26",
+    "mongoose": "^4.9.6",
     "toastr": "^2.1.2"
   },
   "devDependencies": {}

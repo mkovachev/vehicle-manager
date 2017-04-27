@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
 });
 
 // Register User
-router.post('/', function (req, res) {
+router.post('/register', function (req, res) {
 	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
@@ -28,6 +28,30 @@ router.post('/', function (req, res) {
 
 	res.redirect('/');
 });
+
+
+// Log In User
+router.post('/login', function (req, res) {
+	var email = req.body.email;
+	var username = req.body.username;
+	var password = req.body.password;
+	
+	var someGUY = new User({
+		email: email,
+		username: username,
+		password: password
+	});
+	
+	console.log(username, password);
+	User.LogUser(someGUY,  function (err, user) {
+		if (err) throw err;
+		console.log('in cb');
+	});
+	
+
+	res.redirect('/');
+});
+
 
 
 module.exports = router;
