@@ -1,3 +1,3 @@
 npm install
 
-npm server
+node server

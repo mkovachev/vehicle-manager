@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var User = require('../models/user');
+const User = require('../models/user');
 
 // home
 router.get('/', function (req, res) {
@@ -9,13 +9,15 @@ router.get('/', function (req, res) {
 });
 
 // Register User
+
 router.post('/register', function (req, res) {
 	var email = req.body.email;
 	var username = req.body.username;
 	var password = req.body.password;
 	var password2 = req.body.password2;
 
-	var newUser = new User({
+
+	const newUser = new User({
 		email: email,
 		username: username,
 		password: password

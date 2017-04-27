@@ -1,20 +1,19 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var exphbs = require('express-handlebars');
+const express = require('express');
+const bodyParser = require('body-parser');
+const exphbs = require('express-handlebars');
 
 // set MongoDB
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/garage');
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 // Init App
-var app = express();
+const app = express();
 
 // set static folders
 app.use(express.static('public'));
-app.use(express.static('views'));
 
 // set view engine
 app.engine('handlebars', exphbs({
@@ -30,7 +29,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 // set routes handlers
-var home = require('./routes/homeRouter');
+const home = require('./routes/homeRouter');
 app.use('/', home);
 
 // Set Port
