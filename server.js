@@ -18,6 +18,7 @@ app.use(express.static('views'));
 
 // set view engine
 app.engine('handlebars', exphbs({
+  layoutsDir: 'views',
   defaultLayout: 'home'
 }));
 app.set('view engine', 'handlebars');

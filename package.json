@@ -12,6 +12,8 @@
     "body-parser": "*",
     "express": "*",
     "express-handlebars": "*",
+    "izitoast": "^1.1.1",
+    "jquery": "^3.2.1",
     "mongodb": "*",
     "mongoose": "*",
     "toastr": "^2.1.2"
