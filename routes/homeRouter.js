@@ -26,15 +26,6 @@ router.post('/', function (req, res) {
 		console.log(user);
 	});
 
-	iziToast.show({
-		title: 'Hey',
-		message: 'What would you like to add?'
-	});
-
-	//toastr.success('You are registered, please login', {
-	//	timeOut: 5000
-	//});
-
 	res.redirect('/');
 });
 
