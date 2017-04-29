@@ -10,6 +10,13 @@ router.get('/', function (req, res) {
 	res.render('home');
 });
 
+// my garage
+router.get('/mygarage', function (req, res) {
+	res.render('mygarage');
+});
+
+
+
 // Register
 router.post('/', function (req, res) {
 	const username = req.body.username;
@@ -63,7 +70,7 @@ router.post('/login', function (req, res) {
 		console.log(`${username} has just logged in!`);
 	});
 	//toastr.success("You are logged in");
-	res.redirect('/');
+	res.redirect('/mygarage');
 });
 
 

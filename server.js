@@ -11,16 +11,20 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/garage');
 const db = mongoose.connection;
 
+const home = require('./routes/homeRouter');
+var mygarage = require('./routes/mygarageRouter');
+
 // Init App
 const app = express();
 
 // set static folders
 app.use(express.static('public'));
 app.use(express.static('node_modules'));
-app.use(express.static('routes'));
+//app.use(express.static('routes'));
 
 
 // set view engine
+app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({
   layoutsDir: 'views',
   defaultLayout: 'home'
@@ -52,8 +56,8 @@ app.use(expressValidator({
 }));
 
 // set routes handlers
-const home = require('./routes/homeRouter');
 app.use('/', home);
+app.use('/mygarage', mygarage);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
