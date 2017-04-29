@@ -3,6 +3,7 @@
 
 <head>
   <title>Vehicle Manager</title>
+  <link rel="stylesheet" href="./toastr/build/toastr.css">
 </head>
 
 <body>
@@ -13,7 +14,7 @@
       <nav>
         <ul>
           <li><a href="/mygarage">My Garage</a></li>
-          <li><a href="/users/logout">Logout</a> </li>
+          <li><a href="/logout">Logout</a> </li>
         </ul>
       </nav>
       <!-- put fav here -->
@@ -36,7 +37,7 @@
 
     <!-- Register form-->
     <h2>Register</h2>
-    <form method="post" action="/register">
+    <form method="post" action="/">
       <div>
         <label>Username</label>
         <input type="text" placeholder="Username" name="username">
@@ -62,6 +63,8 @@
   </div>
 
   <!-- Scripts -->
+  <script src="./jquery/dist/jquery.min.js"></script>
+  <script src="./toastr/build/toastr.min.js"></script>
 </body>
 
 </html>
