@@ -34,21 +34,21 @@
 
           <div class="mdl-card__supporting-text">
             Please login to access your account information.
-            <form method="post" action="/mygarage" id="login-me">
+            <form method="post" action="/login" id="login-me">
 
               <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" id="login-username">
+                <input class="mdl-textfield__input" type="text" id="login-username" name="username">
                 <label class="mdl-textfield__label" for="login-username">Username:</label>
               </div>
 
               <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="password" id="login-password">
+                <input class="mdl-textfield__input" type="password" id="login-password" name="password">
                 <label class="mdl-textfield__label" for="login-password">Password:</label>
               </div>
           </div>
 
           <div class="mdl-card__actions mdl-card--border">
-            <a onclick="document.getElementById('login-me').submit();" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</a>
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</>
           </div>
           </form>
         </div>

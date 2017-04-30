@@ -16,10 +16,10 @@ const UserSchema = mongoose.Schema({
 		type: String,
 		require: true,
 		unique: true
+	},
+	authToken: { 
+		type: String
 	}
-	//authToken: { TODO
-	//	type: String
-	//}
 });
 
 let User = module.exports = mongoose.model('User', UserSchema);
@@ -33,19 +33,42 @@ module.exports.createUser = function (newUser, callback) {
 	});
 }
 
-// Niki Login TODO
-//module.exports.LogUser = function (user, callback) {
-//	User.findOne({
-//		"username": user.username
-//	}, function (err, foundUser) {
-//		bcrypt.genSalt(10, function (err, salt) {
-//			bcrypt.hash(user.password, salt, function (err, hash) {
-//				bcrypt.compare(foundUser.password, hash, function (err, res) //{
-//					console.log('success');
-//					foundUser.authToken = hash;
-//					foundUser.save(callback);
-//				});
-//			});
-//		});
-//	});
-//}
+
+module.exports.LogUser = function (req, res, loginParams) {
+	User.findOne({
+		"username": loginParams.username
+	}, function (err, user) {
+		console.log(loginParams);
+		if (err) {
+			console.log(err);
+			return res.status(500).send();
+		}
+		if (!user) {
+			return res.status(401).send();
+		}
+
+		bcrypt.compare(loginParams.password, user.password, function (err, success) {
+			if (err) {
+				console.log('password is incorrect!');
+				res.redirect('/');
+			}
+
+			if (success) {
+				bcrypt.genSalt(10, function (err, salt) {
+					bcrypt.hash(loginParams.password, salt, function (err, hash) {
+						
+							console.log('success');
+							user.authToken = hash;
+							user.save(res);
+						
+					});
+				});
+				
+				res.redirect('/mygarage');
+				req.session.user = user;
+				console.log('logged in!');
+				return res.status(200).send();
+			}
+		});
+	});
+}
