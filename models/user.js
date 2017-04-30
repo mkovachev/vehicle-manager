@@ -16,13 +16,13 @@ const UserSchema = mongoose.Schema({
 		type: String,
 		require: true,
 		unique: true
-	},
-	authToken: {
-		type: String
 	}
+	//authToken: { TODO
+	//	type: String
+	//}
 });
 
-const User = module.exports = mongoose.model('User', UserSchema);
+let User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.createUser = function (newUser, callback) {
 	bcrypt.genSalt(10, function (err, salt) {
@@ -33,18 +33,19 @@ module.exports.createUser = function (newUser, callback) {
 	});
 }
 
-module.exports.LogUser = function (user, callback) {
-	User.findOne({
-		"username": user.username
-	}, function (err, foundUser) {
-		bcrypt.genSalt(10, function (err, salt) {
-			bcrypt.hash(user.password, salt, function (err, hash) {
-				bcrypt.compare(foundUser.password, hash, function (err, res) {
-					console.log('success');
-					foundUser.authToken = hash;
-					foundUser.save(callback);
-				});
-			});
-		});
-	});
-}
+// Niki Login TODO
+//module.exports.LogUser = function (user, callback) {
+//	User.findOne({
+//		"username": user.username
+//	}, function (err, foundUser) {
+//		bcrypt.genSalt(10, function (err, salt) {
+//			bcrypt.hash(user.password, salt, function (err, hash) {
+//				bcrypt.compare(foundUser.password, hash, function (err, res) //{
+//					console.log('success');
+//					foundUser.authToken = hash;
+//					foundUser.save(callback);
+//				});
+//			});
+//		});
+//	});
+//}

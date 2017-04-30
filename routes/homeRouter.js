@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const jquery = require('jquery');
-const toastr = require('toastr');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
 // home
 router.get('/', function (req, res) {
-	res.render('home');
+	res.render('home')
 });
 
 // my garage
 router.get('/mygarage', function (req, res) {
-	res.render('mygarage');
-});
-
-
+	res.render('mygarage', {
+		layout: false
+	});
+});;
 
 // Register
 router.post('/', function (req, res) {
@@ -55,23 +54,62 @@ router.post('/', function (req, res) {
 });
 
 // Login
-router.post('/login', function (req, res) {
-	var email = req.body.email;
-	var username = req.body.username;
-	var password = req.body.password;
+router.post('/mygarage', function (req, res) {
+	let loginParams = req.body;
+	User.findOne({
+		"username": loginParams.username
+	}, function (err, user) {
+		console.log(loginParams); // params are not taken!
+		if (err) {
+			console.log(err);
+			return res.status(500).send();
+		}
+		if (!user) {
+			return res.status(401).send();
+		}
 
-	var someGUY = new User({
-		email: email,
-		username: username,
-		password: password
+		bcrypt.compare(loginParams.password, user.password, function (err, success) {
+			if (err) {
+				console.log('password is incorrect!');
+				res.redirect('/');
+			}
+
+			if (success) {
+				res.redirect('/mygarage');
+				req.session.user = user;
+				console.log('logged in!');
+				return res.status(200).send();
+			}
+		});
 	});
-	User.LogUser(someGUY, function (err, user) {
-		if (err) throw err;
-		console.log(`${username} has just logged in!`);
+});
+
+// Logout
+router.get('/logout', function (req, res) {
+	req.session.destroy(function () {
+		console.log("logout success");
+		res.redirect('/');
 	});
-	//toastr.success("You are logged in");
-	res.redirect('/mygarage');
 });
 
 
 module.exports = router;
+
+// Niki Login TODO
+//router.post('/login', function (req, res) {
+//	var email = req.body.email;
+//	var username = req.body.username;
+//	var password = req.body.password;
+//
+//	var someGUY = new User({
+//		email: email,
+//		username: username,
+//		password: password
+//	});
+//	User.LogUser(someGUY, function (err, user) {
+//		if (err) throw err;
+//		console.log(`${username} has just logged in!`);
+//	});
+//	//toastr.success("You are logged in");
+//	res.redirect('/mygarage');
+//});

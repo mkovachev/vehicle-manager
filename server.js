@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const exphbs = require('express-handlebars');
+const session = require('express-session');
 
 // set MongoDB
 const mongo = require('mongodb');
@@ -12,16 +13,13 @@ mongoose.connect('mongodb://localhost/garage');
 const db = mongoose.connection;
 
 const home = require('./routes/homeRouter');
-var mygarage = require('./routes/mygarageRouter');
+const mygarage = require('./routes/mygarageRouter');
 
 // Init App
 const app = express();
 
 // set static folders
 app.use(express.static('public'));
-app.use(express.static('node_modules'));
-//app.use(express.static('routes'));
-
 
 // set view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -37,10 +35,17 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
+// Express Session
+app.use(session({
+  secret: 'secret',
+  saveUninitialized: true, // don't create session until something stored
+  resave: true // don't save session if unmodified
+}));
+
 // express validator
 app.use(expressValidator({
   errorFormatter: function (param, msg, value) {
-    var namespace = param.split('.'),
+    const namespace = param.split('.'),
       root = namespace.shift(),
       formParam = root;
 
@@ -54,6 +59,12 @@ app.use(expressValidator({
     };
   }
 }));
+
+// Global Vars
+app.use(function (req, res, next) {
+  res.locals.user = req.user || null;
+  next();
+});
 
 // set routes handlers
 app.use('/', home);

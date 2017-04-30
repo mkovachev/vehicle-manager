@@ -1,10 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-// Get Homepage
+// my garage
 router.get('/mygarage', function (req, res) {
-    res.render('mygarage');
-});
+    res.render('mygarage', {
+        layout: false
+    });
+});;
 
 
 module.exports = router;
