@@ -18,5 +18,8 @@
     "mongoose": "^4.9.6",
     "toastr": "^2.1.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0"
+  }
 }
