@@ -36,7 +36,10 @@ app.use(bodyParser.urlencoded({
 app.use(session({
   secret: 'secret',
   saveUninitialized: true, // don't create session until something stored
-  resave: true // don't save session if unmodified
+  resave: true, // don't save session if unmodified
+  cookie: {
+    maxAge: 3600000 // one hour
+  }
 }));
 
 // express validator

@@ -71,15 +71,11 @@ router.post('/login', function (req, res) {
 
 // Logout
 router.get('/logout', function (req, res) {
-	if (req.session.user) {
-		req.session.user = null;
-	}
-	req.session.destroy();
-	delete req.session
-	req.logout();
-	console.log("logout success");
-	res.send(200);
-	res.redirect('/');
+	req.session.destroy(function (err) {
+		req.logout();
+		res.end("logout success");
+		res.redirect('/');
+	});
 });
 
 module.exports = router;
