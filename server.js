@@ -12,9 +12,6 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/garage');
 const db = mongoose.connection;
 
-const home = require('./routes/homeRouter');
-const mygarage = require('./routes/mygarageRouter');
-
 // Init App
 const app = express();
 
@@ -60,15 +57,17 @@ app.use(expressValidator({
   }
 }));
 
-// Global Vars
-app.use(function (req, res, next) {
-  res.locals.user = req.user || null;
-  next();
-});
+// change view
+//app.use(function (req, res, next) {
+//  res.locals.user = req.user || null;
+//  next();
+//});
 
-// set routes handlers
+// routes
+const home = require('./routes/homeRouter');
 app.use('/', home);
-app.use('/mygarage', mygarage);
+//const mygarage = require('./routes/mygarageRouter');
+//app.use('/mygarage', mygarage);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

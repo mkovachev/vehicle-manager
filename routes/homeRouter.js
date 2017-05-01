@@ -9,12 +9,22 @@ router.get('/', function (req, res) {
 	res.render('home')
 });
 
-// my garage
-router.get('/mygarage', function (req, res) {
+// logged in view
+router.get('/mygarage', isLoggedIn, function (req, res) {
 	res.render('mygarage', {
 		layout: false
 	});
 });;
+
+
+function isLoggedIn(req, res, next) {
+	if (req.session.user == null) {
+		console.log('Please log in');
+		res.redirect('/');
+	} else {
+		next();
+	}
+};
 
 // Register
 router.post('/', function (req, res) {
@@ -61,13 +71,15 @@ router.post('/login', function (req, res) {
 
 // Logout
 router.get('/logout', function (req, res) {
-	req.session.destroy(function () {
-		console.log("logout success");
-		console.log(this);
-		res.redirect('/');
-	});
+	if (req.session.user) {
+		req.session.user = null;
+	}
+	req.session.destroy();
+	delete req.session
+	req.logout();
+	console.log("logout success");
+	res.send(200);
+	res.redirect('/');
 });
 
-
 module.exports = router;
-

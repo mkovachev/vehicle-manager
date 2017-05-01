@@ -17,7 +17,7 @@ const UserSchema = mongoose.Schema({
 		require: true,
 		unique: true
 	},
-	authToken: { 
+	authToken: {
 		type: String
 	}
 });
@@ -56,16 +56,16 @@ module.exports.LogUser = function (req, res, loginParams) {
 			if (success) {
 				bcrypt.genSalt(10, function (err, salt) {
 					bcrypt.hash(loginParams.password, salt, function (err, hash) {
-						
-							console.log('success');
-							user.authToken = hash;
-							user.save(res);
-						
+
+						console.log('success');
+						user.authToken = hash;
+						user.save(res);
+
 					});
 				});
-				
-				res.redirect('/mygarage');
+
 				req.session.user = user;
+				res.redirect('/mygarage');
 				console.log('logged in!');
 				return res.status(200).send();
 			}
