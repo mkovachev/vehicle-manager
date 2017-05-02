@@ -16,6 +16,9 @@
 </head>
 
 <body>
+  {{#if errors}} {{#each errors}}
+  <div>{{msg}}</div>
+  {{/each}} {{/if}}
   <div id="root">
     <header class="welcome">
       <h1>Welcome to</h1>
@@ -34,7 +37,7 @@
 
           <div class="mdl-card__supporting-text">
             Please login to access your account information.
-            <form method="post" action="/login" id="login-me">
+            <form method="post" action="/mygarage" id="login-me">
 
               <div class="mdl-textfield mdl-js-textfield">
                 <input class="mdl-textfield__input" type="text" id="login-username" name="username">
@@ -48,7 +51,7 @@
           </div>
 
           <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</>
+            <button class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Login</button>
           </div>
           </form>
         </div>
