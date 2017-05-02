@@ -6,7 +6,6 @@ const User = require('../models/user');
 const Vehicle = require('../models/vehicle');
 
 // --------------- Routes ---------------------
-
 // home
 router.get('/', function (req, res) {
 	res.render('home');
@@ -28,9 +27,9 @@ router.get('/addvehicle', isLoggedIn, function (req, res) {
 
 // Maintenance page route
 router.get('/maintenance', isLoggedIn, function (req, res) {
-    res.render('maintenance', {
-        layout: false
-    });
+	res.render('maintenance', {
+		layout: false
+	});
 });
 
 
@@ -142,33 +141,44 @@ router.post('/', function (req, res) {
 // Login
 router.post('/mygarage', function (req, res) {
 	let loginParams = req.body;
-	User.findOne({
-		"username": loginParams.username
-	}, function (err, user) {
-		console.log(loginParams);
-		if (err) {
-			console.log(err);
-			return res.status(500).send();
-		}
-		if (!user) {
-			console.log(user);
-			return res.status(401).send();
-		}
+	const username = req.body.username;
+	const password = req.body.password;
 
-		bcrypt.compare(loginParams.password, user.password, function (err, success) {
+	req.checkBody('username', 'username is required').notEmpty();
+	req.checkBody('password', 'model is required').notEmpty();
+
+	const errors = req.validationErrors();
+	if (errors) {
+		console.log(errors);
+	} else {
+		User.findOne({
+			"username": loginParams.username
+		}, function (err, user) {
+			console.log(loginParams);
 			if (err) {
-				console.log('password is incorrect!');
-				res.redirect('/');
+				console.log(err);
+				return res.status(500).send();
+			}
+			if (!user) {
+				console.log(user);
+				return res.status(401).send();
 			}
 
-			if (success) {
-				req.session.user = user;
-				res.redirect('/mygarage');
-				console.log('logged in successfully!');
-				return res.status(200).send();
-			}
+			bcrypt.compare(loginParams.password, user.password, function (err, success) {
+				if (err) {
+					console.log('password is incorrect!');
+					res.redirect('/');
+				}
+
+				if (success) {
+					req.session.user = user;
+					res.redirect('/mygarage');
+					console.log('logged in successfully!');
+					return res.status(200).send();
+				}
+			});
 		});
-	});
+	}
 });
 
 module.exports = router;
