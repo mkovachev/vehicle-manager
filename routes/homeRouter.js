@@ -32,7 +32,6 @@ router.get('/maintenance', isLoggedIn, function (req, res) {
 	});
 });
 
-
 // logout
 router.get('/logout', isLoggedOut, function (req, res) {
 	res.render('home');
