@@ -24,7 +24,14 @@ router.get('/addvehicle', isLoggedIn, function (req, res) {
 	res.render('addvehicle', {
 		layout: false
 	});
-});;
+});
+
+// Maintenance page route
+router.get('/maintenance', isLoggedIn, function (req, res) {
+    res.render('maintenance', {
+        layout: false
+    });
+});
 
 
 // logout
