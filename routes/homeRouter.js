@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const Vehicle = require('../models/vehicle');
 
+// --------------- Routes ---------------------
+
 // home
 router.get('/', function (req, res) {
 	res.render('home');
@@ -25,6 +27,11 @@ router.get('/addvehicle', isLoggedIn, function (req, res) {
 });;
 
 
+// logout
+router.get('/logout', isLoggedOut, function (req, res) {
+	res.render('home');
+});
+
 function isLoggedIn(req, res, next) {
 	if (req.session.user == null) {
 		console.log('Please log in!');
@@ -33,6 +40,19 @@ function isLoggedIn(req, res, next) {
 		next();
 	}
 };
+
+function isLoggedOut(req, res, next) {
+	if (req.session.user != null) {
+		req.session.destroy(function (err) {
+			res.redirect('/');
+			res.end("Logout success");
+		});
+	} else {
+		next();
+	}
+};
+
+// ------------------------ Requests ---------------
 
 // add vehicle
 router.post('/addvehicle', isLoggedIn, function (req, res) {
@@ -145,14 +165,13 @@ router.post('/mygarage', function (req, res) {
 });
 
 // Logout
-router.get('/logout', function (req, res) {
-	if (req.session.user != null) {
-		req.session.destroy(function (err) {
-			res.end("Logout success");
-			req.logout();
-			res.redirect('/');
-		});
-	}
-});
+//router.get('/logout', function (req, res) {
+//	if (req.session.user != null) {
+//		req.session.destroy(function (err) {
+//			//res.end("Logout success");
+//			//req.logout();
+//		});
+//	}
+//});
 
 module.exports = router;
