@@ -17,23 +17,22 @@
 
 <body>
     <div id="root">
-
         <!-- Navigation -->
         <div class="demo-layout-transparent mdl-layout mdl-js-layout">
             <header class="mdl-layout__header mdl-layout__header--transparent">
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
-                    <a href="/" class="logo ">
+                    <a href="/mygarage" class="logo ">
                         <span>The Garage App</span>
                     </a>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation -->
                     <nav class="mdl-navigation">
-                        <a class="mdl-navigation__link" href="/">Home</a>
                         <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                        <a class="mdl-navigation__link" href="/maintenance">My Maintenance History</a>
-                        <a class="mdl-navigation__link" href="/">Logout</a>
+                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                        <a class="mdl-navigation__link" href="/logout">Logout</a>
                     </nav>
                 </div>
             </header>
@@ -41,82 +40,16 @@
             <div class="mdl-layout__drawer">
                 <span class="mdl-layout-title">Title</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="/">Home</a>
                     <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                    <a class="mdl-navigation__link" href="/maintenance">My Maintenance History</a>
-                    <a class="mdl-navigation__link" href="/">Logout</a>
+                    <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>
         </div>
-
-        <!-- Form box  -->
-
-        <div class="demo-card-square mdl-card mdl-shadow--2dp" id="add-box">
-            <div class="mdl-card__title mdl-card--expand">
-                <h2 class="mdl-card__title-text">Add a vehicle</h2>
-            </div>
-
-            <div class="mdl-card__supporting-text">
-
-                <!-- Simple Select -->
-                <form action="#">
-                    <div class="mdl-select mdl-js-select mdl-select--floating-label">
-                        <select class="mdl-select__input" id="vehicle-type" name="vehicle-type">
-          <option value="car-suv">Car/SUV</option>
-          <option value="option2">Van</option>
-          <option value="truck-bus">Truck/Bus</option>
-          <option value="motorcycle">Motorcycle</option>
-        </select>
-                        <label class="mdl-select__label" for="vehicle-type">Vehicle type</label>
-                    </div>
-                </form>
-
-                <!-- Input field for Brand -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="brand">
-                        <label class="mdl-textfield__label" for="brand">Brand:</label>
-                    </div>
-                </form>
-                <!-- Input field for Model -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="model">
-                        <label class="mdl-textfield__label" for="model">Model:</label>
-                    </div>
-                </form>
-                <!-- Input field for License -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="license">
-                        <label class="mdl-textfield__label" for="license">License ID:</label>
-                    </div>
-                </form>
-                <!-- Input field for year -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="year">
-                        <label class="mdl-textfield__label" for="year">Year of manufacture</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div>
-                </form>
-                <!-- Input field for km -->
-                <form action="#">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="km">
-                        <label class="mdl-textfield__label" for="km">Mileage</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
-                    </div>
-                </form>
-            </div>
-            <div class="mdl-card__actions mdl-card--border" id="save">
-                <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Save</a>
-            </div>
-        </div>
-
-        <!--<script src="./js/mdl-custom/js-vehicle-obj.js"></script> -->
-        <!-- <script src="./js/mdl-custom/mdl-dropdown.js"></script> -->
     </div>
+    <!--<script src="./js/mdl-custom/js-vehicle-obj.js"></script> -->
+    <!-- <script src="./js/mdl-custom/mdl-dropdown.js"></script> -->
 </body>
 
 </html>
