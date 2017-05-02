@@ -164,14 +164,4 @@ router.post('/mygarage', function (req, res) {
 	});
 });
 
-// Logout
-//router.get('/logout', function (req, res) {
-//	if (req.session.user != null) {
-//		req.session.destroy(function (err) {
-//			//res.end("Logout success");
-//			//req.logout();
-//		});
-//	}
-//});
-
 module.exports = router;
