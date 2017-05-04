@@ -96,7 +96,7 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 
 		Vehicle.addVehicle(newVehicle);
 		console.log(`${newVehicle} added successfully!`);
-		res.redirect('/mygarage');
+		//res.redirect('/mygarage');
 	}
 });
 
