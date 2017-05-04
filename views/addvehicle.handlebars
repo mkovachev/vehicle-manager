@@ -6,15 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Garage - vehicle cost and maintenance tracking system</title>
     <!-- Material Design Loading -->
-    <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_orange.min.css">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="../public/css/style.css">
+    <link rel="stylesheet" href="../public/css/mdl-dropdown.css">
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.20.12/system.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <sсript src="../public/js/system-config.js"></sсript>
 </head>
 
 <body>
+
     <div id="root">
         {{#if errors}} {{#each errors}}
         <div>{{msg}}</div>
@@ -58,7 +62,8 @@
 
             <div class="mdl-card__supporting-text">
                 <!-- Simple Select -->
-                <form method="post" action="/addvehicle" id="save-me">
+                <!--action="/addvehicle" -->
+                <form method="post"  id="save-me">
                     <!-- dropdown vehicle Type -->
                     <div class="mdl-select mdl-js-select mdl-select--floating-label">
                         <select class="mdl-select__input" id="vehicle-type" name="vehicleType">
@@ -98,8 +103,13 @@
                     <!-- KM -->
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                         <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="km" name="km">
-                        <label class="mdl-textfield__label" for="km">KM</label>
+                        <label class="mdl-textfield__label" for="km">Km</label>
                         <span class="mdl-textfield__error">Input is not a number!</span>
+                    </div>
+
+                    <div class="mdl-card__actions mdl-card--border" id="save">
+                        <button type="submit" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Save</button>
+                        <!-- <a onclick="document.getElementById('save-me').submit();"  class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Save</a> -->
                     </div>
 
                     <!-- Username -->
@@ -107,11 +117,14 @@
                         <input class="mdl-textfield__input" type="text" id="username" name="username">
                         <label class="mdl-textfield__label" for="username">Username</label>
                     </div>
+
+
                 </form>
             </div>
-            <div class="mdl-card__actions mdl-card--border" id="save">
-                <a onclick="document.getElementById('save-me').submit();" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">Save</a>
-            </div>
+
+            <script src="../public/js/form-submit.js"></script>
+
+
         </div>
     </div>
 
