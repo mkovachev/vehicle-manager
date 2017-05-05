@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs');
 
-// vehicle schema
+// Vehicle Schema
 const VehicleSchema = mongoose.Schema({
     vehicleType: {
         type: String
@@ -23,11 +24,11 @@ const VehicleSchema = mongoose.Schema({
     km: {
         type: Number
     },
-    username: {
-        type: String,
+    owner: {
+        type: Schema.ObjectId,
+        ref: 'User',
         lowercase: true,
-        trim: true,
-        ref: 'User'
+        trim: true
     }
 });
 
@@ -41,6 +42,24 @@ module.exports.getVehicleById = function (id, callback) {
     Vehicle.findById(id, callback);
 }
 
-module.exports.getAllUserVehicle = function (id, callback) {
-    Vehicle.find(id, callback).pretty();
+module.exports.getFleet = function (username, callback) {
+    Vehicle.find(username, callback);
 }
+
+module.exports.editVehicle = function (id, callback) {
+    Vehicle.findOneAndUpdate(id, callback);
+}
+
+module.exports.deleteVehicle = function (id, callback) {
+    Vehicle.findByIdAndRemove(id, callback);
+}
+
+//<body>
+//    <h1>maintenance not working</h1>
+//    {{#if vehicles}} {{#each vehicles}}
+//    <div>
+//        <h1>working view</h1>
+//        {{model}}
+//    </div>
+//    {{/each}} {{/if}}
+//</body>

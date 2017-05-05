@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const exphbs = require('express-handlebars');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 // set MongoDB
 const mongo = require('mongodb');
@@ -16,10 +17,7 @@ const db = mongoose.connection;
 const app = express();
 
 // set static folders
-//app.use(express.static('/public'));
-
-app.use("/public", express.static(__dirname + '/public'));
-app.use("/node_modules", express.static(__dirname + '/node_modules'));
+app.use(express.static('public'));
 
 // set view engine
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +26,7 @@ app.engine('handlebars', exphbs({
   defaultLayout: 'home'
 }));
 app.set('view engine', 'handlebars');
+app.enable('view cache');
 
 // bodyParser
 app.use(bodyParser.json());
@@ -45,7 +44,6 @@ app.use(session({
   }
 }));
 
-// express validator
 app.use(expressValidator({
   errorFormatter: function (param, msg, value) {
     const namespace = param.split('.'),
@@ -63,17 +61,11 @@ app.use(expressValidator({
   }
 }));
 
-// change view
-app.use(function (req, res, next) {
-  res.locals.user = req.user || null;
-  next();
-});
+app.use(flash());
 
 // routes
 const home = require('./routes/homeRouter');
 app.use('/', home);
-//const mygarage = require('./routes/mygarageRouter');
-//app.use('/mygarage', mygarage);
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));

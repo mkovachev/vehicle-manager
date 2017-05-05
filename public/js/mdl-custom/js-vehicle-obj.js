@@ -1,4 +1,4 @@
-import { Vehicle } from './classes/vehicle.js';
+//import { Vehicle } from './classes/vehicle.js';
 class Vehicle {
     constructor(brand, model, year, license, km) {
         this._brand = brand;

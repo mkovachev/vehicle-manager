@@ -1,42 +1,47 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const User = require('../models/user');
 const Vehicle = require('../models/vehicle');
 
 // --------------- Routes ---------------------
+
 // home
 router.get('/', function (req, res) {
 	res.render('home');
 });
 
-// my garage route
+// my garage
 router.get('/mygarage', isLoggedIn, function (req, res) {
 	res.render('mygarage', {
 		layout: false
 	});
 });
 
-// add vehicle route
+// add vehicle
 router.get('/addvehicle', isLoggedIn, function (req, res) {
 	res.render('addvehicle', {
 		layout: false
 	});
 });
 
-// Maintenance page route
-router.get('/maintenance', isLoggedIn, function (req, res) {
-	res.render('maintenance', {
-		layout: false
-	});
-});
+// show vehicles
+//router.get('/maintenance', isLoggedIn, function (req, res) {
+//	res.render('maintenance', {
+//		layout: false,
+//		vehicles: true
+//	});
+//});
 
 // logout
 router.get('/logout', isLoggedOut, function (req, res) {
 	res.render('home');
 });
 
+// helpers
 function isLoggedIn(req, res, next) {
 	if (req.session.user == null) {
 		console.log('Please log in!');
@@ -51,13 +56,45 @@ function isLoggedOut(req, res, next) {
 		req.session.destroy(function (err) {
 			res.redirect('/');
 			res.end("Logout success");
+			return;
 		});
 	} else {
 		next();
 	}
 };
+// Filtering out properties TODO
+function replacer(key, value) {
+	if (typeof value === Schema.ObjectId) {
+		return undefined;
+	}
+	return value;
+}
 
-// ------------------------ Requests ---------------
+//------------------------- Requests ---------------
+
+// maitenance view
+router.get('/maintenance', isLoggedIn, function (req, res, next) {
+	const id = req.session.user._id;
+	Vehicle.find({
+		"owner": id
+	}, function (err, vehicles) {
+		if (err) {
+			req.flash('error', err);
+		} else if (vehicles.length === 0) {
+			req.flash('error', 'This user has no vehicles');
+			res.redirect('mygarage');
+			return;
+		} else {
+			res.render('maintenance', {
+				layout: false,
+				vehicles: {
+					vehicles: JSON.stringify(vehicles, replacer)
+				}
+			});
+			return;
+		}
+	})
+});
 
 // add vehicle
 router.post('/addvehicle', isLoggedIn, function (req, res) {
@@ -68,9 +105,8 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 	const license = req.body.license;
 	const yearOfManufacture = req.body.yearOfManufacture;
 	const km = req.body.km;
-	const username = req.session.user.username;
-	console.log('username is: ' + username);
-	console.log('req.session.user.username is: ' + req.session.user.username);
+
+	const user = req.session.user;
 
 	// input validation
 	req.checkBody('brand', 'brand is required').notEmpty();
@@ -82,8 +118,8 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 	const errors = req.validationErrors();
 	if (errors) {
 		console.log(errors);
+		return;
 	} else {
-
 		const newVehicle = new Vehicle({
 			vehicleType,
 			brand,
@@ -91,12 +127,20 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 			license,
 			yearOfManufacture,
 			km,
-			username
+			'owner': user._id
 		});
-
 		Vehicle.addVehicle(newVehicle);
-		console.log(`${newVehicle} added successfully!`);
-		//res.redirect('/mygarage');
+		user.vehicles.push(newVehicle._id); // TODO
+		res.redirect('/mygarage');
+		return;
+
+		// not working
+		//User.findByIdAndUpdate(req.session.user.id, function (err, //res) {
+		//	if (err) {
+		//		console.log(err);
+		//	}
+		//	user.vehicles.push(newVehicle);
+		//});
 	}
 });
 
@@ -119,10 +163,12 @@ router.post('/', function (req, res) {
 	}).then(user => {
 		if (user) {
 			console.log('User exists!');
+			return;
 		} else {
 			const errors = req.validationErrors();
 			if (errors) {
 				console.log(errors);
+				return;
 			} else {
 				const newUser = new User({
 					email: email,
@@ -131,15 +177,17 @@ router.post('/', function (req, res) {
 				});
 				User.createUser(newUser);
 				console.log("Registered successfully!");
+				res.redirect('/');
+				return;
 			}
 		}
-		res.redirect('/');
 	});
+	return;
 });
 
 // Login
 router.post('/mygarage', function (req, res) {
-	let loginParams = req.body;
+	const loginParams = req.body;
 	const username = req.body.username;
 	const password = req.body.password;
 
@@ -149,31 +197,33 @@ router.post('/mygarage', function (req, res) {
 	const errors = req.validationErrors();
 	if (errors) {
 		console.log(errors);
+		return;
 	} else {
 		User.findOne({
 			"username": loginParams.username
 		}, function (err, user) {
-			console.log(loginParams);
 			if (err) {
 				console.log(err);
-				return res.status(500).send();
+				return;
 			}
-			if (!user) {
-				console.log(user);
-				return res.status(401).send();
+			if (!user || user === null) {
+				console.log('user does not exist');
+				res.redirect('/');
+				return;
 			}
 
 			bcrypt.compare(loginParams.password, user.password, function (err, success) {
 				if (err) {
 					console.log('password is incorrect!');
 					res.redirect('/');
+					return;
 				}
 
 				if (success) {
 					req.session.user = user;
 					res.redirect('/mygarage');
 					console.log('logged in successfully!');
-					return res.status(200).send();
+					return;
 				}
 			});
 		});
