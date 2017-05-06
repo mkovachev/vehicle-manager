@@ -152,7 +152,7 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 		});
 		Event.addEvent(newEvent);
 		vehicle.events.push(newEvent._id); // TODO
-		res.redirect('/mygarage');
+		res.redirect('/maintenance');
 		return;
 	}
 });
