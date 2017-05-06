@@ -17,15 +17,14 @@
                     <th>Km</th>
                 </tr>
             </thead>
-            {{#each vehicles}}
+            {{#if vehicle}}
+            {{#if event}}
+
             <tr>
-                <td>{{vehicleType}}</td>
-                <td>{{brand}}</td>
-                <td>{{model}}</td>
-                <td>{{license}}</td>
-                <td>{{yearOfManufacture}}</td>
-                <td>{{km}}</td>
+                <td>{{event}}</td>
+                <td>{{event}}</td>
             </tr>
+            {{/each}}
             {{/each}}
             </pre>
 </body>

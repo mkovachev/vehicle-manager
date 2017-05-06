@@ -106,7 +106,7 @@ router.get('/mygarage', isLoggedIn, function (req, res, next) {
 			res.redirect('addvehicle');
 			return;
 		} else {
-			res.render('maintenance', {
+			res.render('mygarage', {
 				layout: false,
 				vehicles: vehicles,
 				helpers: {
