@@ -65,3 +65,7 @@ header.welcome {
     bottom: 0;
     left: 0;
 }
+#data-table{
+    margin: 0 auto;
+    margin-top: 10%;
+}
