@@ -66,32 +66,32 @@ function replacer(key, value) {
 //------------------------- VIEWs ---------------
 
 // maintenance - all events per vehicle view
-//router.get('/maintenance', isLoggedIn, function (req, res, next) {
-//	// select clicked vehicle TODO
-//	const vehicleLicense = req.body.vehicle.license;
-//	Event.find({
-//		"vehicleLicense": vehicleLicense
-//	}, function (err, vehicle) {
-//		console.log(vehicle);
-//		if (err) {
-//			console.log('vehicle not found, check your input!');
-//			req.flash('error', err);
-//		} else if (vehicle === null || vehicle === 'undefined') {
-//			req.flash('error', 'This vehicle has no events yet, //add one now');
-//			res.redirect('addevent');
-//			return;
-//		} else {
-//			events: events,
-//				helpers: {
-//					json: function (context) {
-//						return JSON.stringify(context);
-//					}
-//				}
-//			});
-//			return;
-//		}
-//	})
-//});
+router.get('/maintenance', isLoggedIn, function (req, res, next) {
+	// select clicked vehicle TODO
+	const vechicleID = req.query.id;
+	// Event.find({
+		// "_id": vechicleID
+	// }, function (err, vehicle) {
+		// console.log(vehicle);
+		// if (err) {
+			// console.log('vehicle not found, check your input!');
+			// req.flash('error', err);
+		// } else if (vehicle === null || vehicle === 'undefined') {
+			// req.flash('error', 'This vehicle has no events yet, //add one now');
+			// res.redirect('addevent');
+			// return;
+		// } else {
+			// events: events,
+				// helpers: {
+					// json: function (context) {
+						// return JSON.stringify(context);
+					// }
+				// }
+			// });
+			// return;
+		// }
+	// })
+});
 
 // mygarage - all vehicle per user view
 router.get('/mygarage', isLoggedIn, function (req, res, next) {
