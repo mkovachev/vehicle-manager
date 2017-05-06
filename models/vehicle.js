@@ -16,7 +16,8 @@ const VehicleSchema = mongoose.Schema({
         require: true
     },
     license: {
-        type: String
+        type: String,
+        unique: true
     },
     yearOfManufacture: {
         type: String,
@@ -27,8 +28,12 @@ const VehicleSchema = mongoose.Schema({
     owner: {
         type: Schema.ObjectId,
         ref: 'User',
+        unique: true,
         lowercase: true,
         trim: true
+    },
+    events: {
+        type: String
     }
 });
 
@@ -53,13 +58,3 @@ module.exports.editVehicle = function (id, callback) {
 module.exports.deleteVehicle = function (id, callback) {
     Vehicle.findByIdAndRemove(id, callback);
 }
-
-//<body>
-//    <h1>maintenance not working</h1>
-//    {{#if vehicles}} {{#each vehicles}}
-//    <div>
-//        <h1>working view</h1>
-//        {{model}}
-//    </div>
-//    {{/each}} {{/if}}
-//</body>

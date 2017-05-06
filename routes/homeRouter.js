@@ -6,19 +6,13 @@ const Schema = mongoose.Schema;
 
 const User = require('../models/user');
 const Vehicle = require('../models/vehicle');
+const Event = require('../models/event');
 
 // --------------- Routes ---------------------
 
 // home
 router.get('/', function (req, res) {
 	res.render('home');
-});
-
-// my garage
-router.get('/mygarage', isLoggedIn, function (req, res) {
-	res.render('mygarage', {
-		layout: false
-	});
 });
 
 // add vehicle
@@ -28,13 +22,12 @@ router.get('/addvehicle', isLoggedIn, function (req, res) {
 	});
 });
 
-// show vehicles
-//router.get('/maintenance', isLoggedIn, function (req, res) {
-//	res.render('maintenance', {
-//		layout: false,
-//		vehicles: true
-//	});
-//});
+// add event
+router.get('/addevent', isLoggedIn, function (req, res) {
+	res.render('addevent', {
+		layout: false
+	});
+});
 
 // logout
 router.get('/logout', isLoggedOut, function (req, res) {
@@ -70,10 +63,37 @@ function replacer(key, value) {
 	return value;
 }
 
-//------------------------- Requests ---------------
+//------------------------- VIEWs ---------------
 
-// maitenance view
+// maintenance - all events per vehicle view
 router.get('/maintenance', isLoggedIn, function (req, res, next) {
+	// select clicked vehicle TODO
+	const vehicleLicense = req.body.vehicle.license;
+	Event.find({
+		"vehicleLicense": vehicleLicense
+	}, function (err, vehicle) {
+		console.log(vehicle);
+		if (err) {
+			console.log('vehicle not found, check your input!');
+			req.flash('error', err);
+		} else if (vehicle === null || vehicle === 'undefined') {
+			req.flash('error', 'This vehicle has no events yet, add one now');
+			res.redirect('addevent');
+			return;
+		} else {
+			res.render('maintenance', {
+				layout: false,
+				events: {
+					events: JSON.stringify(events, replacer)
+				}
+			});
+			return;
+		}
+	})
+});
+
+// mygarage - all vehicle per user view
+router.get('/mygarage', isLoggedIn, function (req, res, next) {
 	const id = req.session.user._id;
 	Vehicle.find({
 		"owner": id
@@ -81,11 +101,11 @@ router.get('/maintenance', isLoggedIn, function (req, res, next) {
 		if (err) {
 			req.flash('error', err);
 		} else if (vehicles.length === 0) {
-			req.flash('error', 'This user has no vehicles');
-			res.redirect('mygarage');
+			req.flash('error', 'This user has no vehicles, add one first');
+			res.redirect('addvehicle');
 			return;
 		} else {
-			res.render('maintenance', {
+			res.render('mygarage', {
 				layout: false,
 				vehicles: {
 					vehicles: JSON.stringify(vehicles, replacer)
@@ -94,6 +114,43 @@ router.get('/maintenance', isLoggedIn, function (req, res, next) {
 			return;
 		}
 	})
+});
+
+
+//--------------------POST requests --------------
+// add event
+router.post('/addevent', isLoggedIn, function (req, res) {
+	const inputParams = req.body;
+	const title = req.body.title;
+	const description = req.body.description;
+	const km = req.body.km;
+	const cost = req.body.cost;
+	const vehicleLicense = req.body.vehicleLicense;
+
+	// input validation
+	req.checkBody('title', 'title is required').notEmpty();
+	req.checkBody('description', 'description is required').notEmpty();
+	req.checkBody('km', 'km is required').notEmpty();
+	req.checkBody('cost', 'cost is required').notEmpty();
+	req.checkBody('vehicleLicense', 'vehicleLicense is required').notEmpty();
+
+	const errors = req.validationErrors();
+	if (errors) {
+		console.log(errors);
+		return;
+	} else {
+		const newEvent = new newEvent({
+			title,
+			description,
+			km,
+			cost,
+			vehicleLicense
+		});
+		Event.addEvent(newEvent);
+		vehicle.events.push(newEvent._id); // TODO
+		res.redirect('/mygarage');
+		return;
+	}
 });
 
 // add vehicle

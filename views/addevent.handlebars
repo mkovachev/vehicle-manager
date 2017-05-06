@@ -57,55 +57,35 @@
             </div>
 
             <div class="mdl-card__supporting-text">
-                <!-- Simple Select -->
-                <form method="post" action="/addvehicle" id="save-me">
-                    <!-- dropdown vehicle Type -->
-                    <div class="mdl-select mdl-js-select mdl-select--floating-label">
-                        <select class="mdl-select__input" id="vehicle-type" name="vehicleType">
-                                 <option value="car-suv">Car/SUV</option>
-                                 <option value="option2">Van</option>
-                                 <option value="truck-bus">Truck/Bus</option>
-                                 <option value="motorcycle">Motorcycle</option>
-                        </select>
-                        <label class="mdl-select__label" for="vehicle-type"></label>
-                    </div>
-
-                    <!-- Brand -->
+                <form method="post" action="/addevents" id="save-me">
+                    <!-- Title -->
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="brand" name="brand">
-                        <label class="mdl-textfield__label" for="brand">Brand:</label>
+                        <input class="mdl-textfield__input" type="text" id="title" name="title">
+                        <label class="mdl-textfield__label" for="title">Title:</label>
                     </div>
 
-                    <!-- Model -->
+                    <!-- Description -->
                     <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="model" name="model">
-                        <label class="mdl-textfield__label" for="model">Model:</label>
-                    </div>
-
-                    <!-- License -->
-                    <div class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="license" name="license">
-                        <label class="mdl-textfield__label" for="license">License:</label>
-                    </div>
-
-                    <!-- Year -->
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="year" name="yearOfManufacture">
-                        <label class="mdl-textfield__label" for="year">Year of manufacture</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
+                        <input class="mdl-textfield__input" type="text" id="description" name="description">
+                        <label class="mdl-textfield__label" for="description">Description:</label>
                     </div>
 
                     <!-- KM -->
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="km" name="km">
-                        <label class="mdl-textfield__label" for="km">KM</label>
-                        <span class="mdl-textfield__error">Input is not a number!</span>
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="km" name="km">
+                        <label class="mdl-textfield__label" for="km">KM:</label>
                     </div>
 
-                    <!-- Owner -->
-                    <div hidden class="mdl-textfield mdl-js-textfield">
-                        <input class="mdl-textfield__input" type="text" id="owner" name="owner">
-                        <label class="mdl-textfield__label" for="owner">Owner</label>
+                    <!-- Cost -->
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="cost" name="cost">
+                        <label class="mdl-textfield__label" for="cost">Cost:</label>
+                    </div>
+
+                    <!-- VehicleLicense -->
+                    <div class="mdl-textfield mdl-js-textfield">
+                        <input class="mdl-textfield__input" type="text" id="vehicleLicense" name="vehicleLicense">
+                        <label class="mdl-textfield__label" for="vehicleLicense">vehicleLicense:</label>
                     </div>
                 </form>
             </div>

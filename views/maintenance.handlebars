@@ -1,23 +1,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>My Garage - vehicle cost and maintenance tracking system</title>
-    <!-- Material Design Loading -->
-    <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_orange.min.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/mdl-dropdown.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
 <body>
-    {{#each vehicles}}
-    <div>
-        <a href="/maintenance">{{this}}</a>
-    </div>
-    {{/each}}
+    <pre>
+    <table>
+        <tbody>
+            <thead>
+                <tr>
+                    <th>Vehicle Type</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>License</th>
+                    <th>Year</th>
+                    <th>Km</th>
+                </tr>
+            </thead>
+            {{#each vehicles}}
+            <tr>
+                <td>{{vehicleType}}</td>
+                <td>{{brand}}</td>
+                <td>{{model}}</td>
+                <td>{{license}}</td>
+                <td>{{yearOfManufacture}}</td>
+                <td>{{km}}</td>
+            </tr>
+            {{/each}}
+            </pre>
 </body>
 
 </html>

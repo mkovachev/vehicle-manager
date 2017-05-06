@@ -30,8 +30,8 @@
                     <!-- Navigation -->
                     <nav class="mdl-navigation">
                         <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                         <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                         <a class="mdl-navigation__link" href="/logout">Logout</a>
                     </nav>
                 </div>
@@ -41,12 +41,17 @@
                 <span class="mdl-layout-title">My Garage</span>
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                    <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                     <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                     <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>
         </div>
+        {{#each vehicles}}
+        <div class='selected-vehicle'>
+            <a href="/addevent" onclick="document.getElementById('selected-vehicle').submit();">{{this}}</a>
+        </div>
+        {{/each}}
     </div>
 </body>
 
