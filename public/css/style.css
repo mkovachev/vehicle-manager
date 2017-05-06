@@ -69,3 +69,9 @@ header.welcome {
     margin: 0 auto;
     margin-top: 10%;
 }
+
+#delete{
+    display: block;
+    margin: 0 auto;
+    margin-top: 2%;
+}
