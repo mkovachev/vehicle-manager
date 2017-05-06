@@ -68,29 +68,29 @@ function replacer(key, value) {
 // maintenance - all events per vehicle view
 router.get('/maintenance', isLoggedIn, function (req, res, next) {
 	// select clicked vehicle TODO
-	const vechicleID = req.query.id;
-	// Event.find({
-		// "_id": vechicleID
-	// }, function (err, vehicle) {
-		// console.log(vehicle);
-		// if (err) {
-			// console.log('vehicle not found, check your input!');
-			// req.flash('error', err);
-		// } else if (vehicle === null || vehicle === 'undefined') {
-			// req.flash('error', 'This vehicle has no events yet, //add one now');
-			// res.redirect('addevent');
-			// return;
-		// } else {
-			// events: events,
-				// helpers: {
-					// json: function (context) {
-						// return JSON.stringify(context);
-					// }
-				// }
-			// });
-			// return;
-		// }
-	// })
+	const vehicleId = req.query.id;
+	Event.find({
+		"vehicleId": vehicleId
+	}, function (err, events) {
+		if (err) {
+			console.log(err);
+		} else if (events.length === 0) {
+			console.log('This vehicle has no events yet, add one now');
+			res.redirect('addevent');
+			return;
+		} else {
+			res.render('maintenance', {
+				layout: false,
+				events: events,
+				helpers: {
+					json: function (context) {
+						return JSON.stringify(context);
+					}
+				}
+			});
+			return;
+		}
+	})
 });
 
 // mygarage - all vehicle per user view
@@ -129,29 +129,29 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 	const description = req.body.description;
 	const km = req.body.km;
 	const cost = req.body.cost;
-	const vehicleLicense = req.body.vehicleLicense;
+	//const vehicleId = req.body.vehicleId; // TODO
 
 	// input validation
 	req.checkBody('title', 'title is required').notEmpty();
 	req.checkBody('description', 'description is required').notEmpty();
 	req.checkBody('km', 'km is required').notEmpty();
 	req.checkBody('cost', 'cost is required').notEmpty();
-	req.checkBody('vehicleLicense', 'vehicleLicense is required').notEmpty();
+	//req.checkBody('vehicleId', 'vehicleId is required').notEmpty();
 
 	const errors = req.validationErrors();
 	if (errors) {
 		console.log(errors);
 		return;
 	} else {
-		const newEvent = new newEvent({
+		const newEvent = new Event({
 			title,
 			description,
 			km,
 			cost,
-			vehicleLicense
+			//vehicleId
 		});
 		Event.addEvent(newEvent);
-		vehicle.events.push(newEvent._id); // TODO
+		//vehicle.events.push(newEvent._id); // TODO
 		res.redirect('/maintenance');
 		return;
 	}

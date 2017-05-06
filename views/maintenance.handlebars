@@ -1,32 +1,79 @@
+<!DOCTYPE html>
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Garage - vehicle cost and maintenance tracking system</title>
+    <!-- Material Design Loading -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-deep_orange.min.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link rel="stylesheet" href=".../../css/style.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
 </head>
 
 <body>
-    <pre>
-    <table>
-        <tbody>
+
+    <div id="root">
+
+        <!-- Navigation -->
+        <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--transparent">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <a href="/mygarage" class="logo ">
+                    <span>The Garage App</span>
+                </a>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link" href="/mygarage">MyGarage</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/logout">Logout</a>
+                    </nav>
+                </div>
+            </header>
+            <!-- Side Navigation -->
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">My Garage</span>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                    <a class="mdl-navigation__link" href="/logout">Logout</a>
+                </nav>
+            </div>
+        </div>
+
+
+
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="data-table">
+
             <thead>
                 <tr>
-                    <th>Vehicle Type</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>License</th>
-                    <th>Year</th>
-                    <th>Km</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>KM</th>
+                    <th>Cost</th>
                 </tr>
             </thead>
-            {{#if vehicle}}
-            {{#if event}}
+            <tbody>
+                {{#each events}}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">{{title}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{description}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{km}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{cost}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
 
-            <tr>
-                <td>{{event}}</td>
-                <td>{{event}}</td>
-            </tr>
-            {{/each}}
-            {{/each}}
-            </pre>
+
+    </div>
 </body>
 
 </html>
