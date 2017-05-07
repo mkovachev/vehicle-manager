@@ -10,7 +10,7 @@ const flash = require('connect-flash');
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/garage');
+mongoose.connect('mongodb://localhost/mygarage');
 const db = mongoose.connection;
 
 // Init App

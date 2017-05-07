@@ -16,10 +16,9 @@ const EventSchema = mongoose.Schema({
     cost: {
         type: Number,
     },
-    vehicleId: {
-        type: String, //
+    vehicleLicense: {
+        type: String,
         ref: 'Vehicle',
-        lowercase: true,
         trim: true
     }
 });

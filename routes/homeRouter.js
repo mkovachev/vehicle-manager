@@ -7,6 +7,9 @@ const Schema = mongoose.Schema;
 const User = require('../models/user');
 const Vehicle = require('../models/vehicle');
 const Event = require('../models/event');
+const UserClass = require('../models/UserClass');
+const VehicleClass = require('../models/VehicleClass');
+
 
 // --------------- Routes ---------------------
 
@@ -72,20 +75,11 @@ function replacer(key, value) {
 }
 
 //------------------------- VIEWs ---------------
-
-// maintenance - all events per vehicle view
+// maintenance - all events
 router.get('/maintenance', isLoggedIn, function (req, res, next) {
-	// select clicked vehicle TODO
-	const vehicleId = req.query.id;
-	Event.find({
-		"vehicleId": vehicleId
-	}, function (err, events) {
+	Event.find({}, function (err, events) {
 		if (err) {
 			console.log(err);
-		} else if (events.length === 0) {
-			console.log('This vehicle has no events yet, add one now');
-			res.redirect('addevent');
-			return;
 		} else {
 			res.render('maintenance', {
 				layout: false,
@@ -108,9 +102,9 @@ router.get('/mygarage', isLoggedIn, function (req, res, next) {
 		"owner": id
 	}, function (err, vehicles) {
 		if (err) {
-			req.flash('error', err);
+			console.log(err);
 		} else if (vehicles.length === 0) {
-			req.flash('error', 'This user has no vehicles, add one first');
+			console.log('This user has no vehicles, add one first');
 			res.redirect('addvehicle');
 			return;
 		} else {
@@ -137,14 +131,14 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 	const description = req.body.description;
 	const km = req.body.km;
 	const cost = req.body.cost;
-	//const vehicleId = req.body.vehicleId; // TODO
+	const vehicleLicense = req.body.vehicleLicense; // TODO
 
 	// input validation
 	req.checkBody('title', 'title is required').notEmpty();
 	req.checkBody('description', 'description is required').notEmpty();
 	req.checkBody('km', 'km is required').notEmpty();
 	req.checkBody('cost', 'cost is required').notEmpty();
-	//req.checkBody('vehicleId', 'vehicleId is required').notEmpty();
+	req.checkBody('vehicleLicense', 'vehicleLicense is required').notEmpty();
 
 	const errors = req.validationErrors();
 	if (errors) {
@@ -156,7 +150,7 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 			description,
 			km,
 			cost,
-			//vehicleId
+			vehicleLicense
 		});
 		Event.addEvent(newEvent);
 		//vehicle.events.push(newEvent._id); // TODO
@@ -176,7 +170,7 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 	const km = req.body.km;
 
 	const user = req.session.user;
-
+	console.log(user._id);
 	// input validation
 	req.checkBody('brand', 'brand is required').notEmpty();
 	req.checkBody('model', 'model is required').notEmpty();
@@ -185,40 +179,81 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 	req.checkBody('km', 'km is required').notEmpty();
 
 	const errors = req.validationErrors();
+	// if (errors) {
+		// console.log(errors);
+		// return;
+	// } else {
+		// const newVehicle = new Vehicle({
+			// vehicleType,
+			// brand,
+			// model,
+			// license,
+			// yearOfManufacture,
+			// km,
+			// 'owner': user._id
+		// });
+		// Vehicle.addVehicle(newVehicle);
+		// user.vehicles.push(newVehicle._id); // TODO
+		// res.redirect('/mygarage');
+		// return;
+	// }
+	
 	if (errors) {
 		console.log(errors);
 		return;
 	} else {
-		const newVehicle = new Vehicle({
-			vehicleType,
-			brand,
-			model,
-			license,
-			yearOfManufacture,
-			km,
-			'owner': user._id
-		});
-		Vehicle.addVehicle(newVehicle);
-		user.vehicles.push(newVehicle._id); // TODO
-		res.redirect('/mygarage');
-		return;
+		var mongodb = require('mongodb');
+		//getting the mongo client interface to connect witha  mongodb server
+		var MongoClient = mongodb.MongoClient;
+		//connection url of the database
+		var url = 'mongodb://localhost/mygarage';
 
-		// not working
-		//User.findByIdAndUpdate(req.session.user.id, function (err, //res) {
-		//	if (err) {
-		//		console.log(err);
-		//	}
-		//	user.vehicles.push(newVehicle);
-		//});
+		MongoClient.connect(url,function(error,db){
+
+	    if(error){
+	        console.log("Unable to connect to mongo server ERROR : " ,error);
+	    } else {
+	        console.log("Connection sucesful to ", url);
+
+	        var vehicles = db.collection('vehicles');
+	        var users = db.collection('users');
+			let someVehicle = new VehicleClass(brand, model, license, yearOfManufacture, km);
+			console.log(someVehicle);
+		    vehicles.insert(someVehicle, function (err, result) {
+		    	if (error) {
+		            console.log("ERROR ", error);
+					return;
+		        }
+		         else {
+		            console.log("SUCCESS INSERTED in to vehicles collection _is are ", result.length, result)
+					return;
+		        }
+		       
+			});
+
+		    users.findOne({"_id": user}, 
+			function (err, foundUser) {
+				console.log(foundUser);
+				//foundUser.vehicles.push(someVehicle);
+				res.redirect('/mygarage');
+				return;
+			});      
+	 
 	}
+});
+	}
+
 });
 
 // Register
 router.post('/', function (req, res) {
 	const username = req.body.username;
 	const email = req.body.email;
-	const password = req.body.password;
+	let password = req.body.password;
 	const password2 = req.body.password2;
+
+	let some = new UserClass(username, email, password);
+	console.log(some);
 
 	// input validation
 	req.checkBody('email', 'Email is required').notEmpty();
@@ -226,32 +261,72 @@ router.post('/', function (req, res) {
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-	User.findOne({
-		"username": username,
-		"email": email
-	}).then(user => {
-		if (user) {
-			console.log('User exists!');
-			return;
-		} else {
-			const errors = req.validationErrors();
-			if (errors) {
-				console.log(errors);
-				return;
-			} else {
-				const newUser = new User({
-					email: email,
-					username: username,
-					password: password
-				});
-				User.createUser(newUser);
-				console.log("Registered successfully!");
-				res.redirect('/');
-				return;
-			}
-		}
+	// User.findOne({
+		// "username": username,
+		// "email": email
+	// }).then(user => {
+		// if (user) {
+			// console.log('User exists!');
+			// return;
+		// } else {
+			// const errors = req.validationErrors();
+			// if (errors) {
+				// console.log(errors);
+				// return;
+			// } else {
+				// const newUser = new User({
+					// email: email,
+					// username: username,
+					// password: password
+				// });
+				// User.createUser(newUser);
+				// console.log("Registered successfully!");
+				// res.redirect('/');
+				// return;
+			// }
+		// }
+	// });
+	// return;
+
+	var mongodb = require('mongodb');
+	//getting the mongo client interface to connect witha  mongodb server
+	var MongoClient = mongodb.MongoClient;
+	//connection url of the database
+	var url = 'mongodb://localhost/mygarage';
+
+	MongoClient.connect(url,function(error,db){
+
+    if(error){
+        console.log("Unable to connect to mongo server ERROR : " ,error);
+    }else {
+        console.log("Connection sucesful to ", url);
+
+        var collection = db.collection('users');
+		bcrypt.genSalt(10, function (err, salt) {
+		bcrypt.hash(password, salt, function (err, hash) {
+			password = hash;
+			let some = new UserClass(username, email, password);
+			console.log(some);
+	        collection.insert(some, function (err, result) {
+	            if (error) {
+	                console.log("ERROR ", error);
+					return;
+	            }
+	            else {
+	                console.log("SUCCESS INSERTED in to users collection _is are ", result.length, result)
+					console.log("Registered successfully!");
+					res.redirect('/');
+					return;
+	            }
+	        });
+		});
 	});
-	return;
+        
+ }
+})
+
+
+	
 });
 
 // Login
@@ -264,11 +339,20 @@ router.post('/mygarage', function (req, res) {
 	req.checkBody('password', 'model is required').notEmpty();
 
 	const errors = req.validationErrors();
-	if (errors) {
-		console.log(errors);
-		return;
-	} else {
-		User.findOne({
+	
+	var mongodb = require('mongodb');
+	//getting the mongo client interface to connect witha  mongodb server
+	var MongoClient = mongodb.MongoClient;
+	//connection url of the database
+	var url = 'mongodb://localhost/mygarage';
+
+	MongoClient.connect(url,function(error,db) {
+
+    if(error){
+        console.log("Unable to connect to mongo server ERROR : " ,error);
+    } else {
+    	var collection = db.collection('users');
+       collection.findOne({
 			"username": loginParams.username
 		}, function (err, user) {
 			if (err) {
@@ -296,7 +380,9 @@ router.post('/mygarage', function (req, res) {
 				}
 			});
 		});
-	}
+ }
+})
+
 });
 
 module.exports = router;

@@ -15,24 +15,37 @@
 
 <body>
 
-<div id="root">
+    <div id="root">
 
-    <!-- Navigation -->
-    <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-        <header class="mdl-layout__header mdl-layout__header--transparent">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <a href="/mygarage" class="logo ">
+        <!-- Navigation -->
+        <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--transparent">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <a href="/mygarage" class="logo ">
                     <span>The Garage App</span>
                 </a>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation -->
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
+                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/addevent">Add Event</a>
+                        <a class="mdl-navigation__link" href="/logout">Logout</a>
+                    </nav>
+                </div>
+            </header>
+            <!-- Side Navigation -->
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">My Garage</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="/mygarage">MyGarage</a>
-                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                     <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                     <a class="mdl-navigation__link" href="/workshops">Find a workshop</a>
+                    <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                     <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>
@@ -45,42 +58,43 @@
                 <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
                 <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                 <a class="mdl-navigation__link" href="/workshops">Find a workshop</a>
+                <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                 <a class="mdl-navigation__link" href="/logout">Logout</a>
             </nav>
+            </div>
         </div>
+
+
+
+        <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="data-table">
+
+            <thead>
+                <tr>
+                    <th>Car License</th>
+                    <th>Type</th>
+                    <th>Brand</th>
+                    <th>Model</th>
+                    <th>Year</th>
+                    <th>Km</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each vehicles}}
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric">{{license}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{vehicleType}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{brand}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{model}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{yearOfManufacture}}</td>
+                    <td class="mdl-data-table__cell--non-numeric">{{km}}</td>
+                    <!-- <td class="mdl-data-table__cell--non-numeric"><a href='maintenance?id={{_id}}'>Show more</a></td> -->
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+
     </div>
-
-
-
-    <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="data-table">
-
-        <thead>
-        <tr>
-            <th class="mdl-data-table__cell--non-numeric">Vehicle Type</th>
-            <th>Brand</th>
-            <th>Model</th>
-            <th>License</th>
-            <th>Year</th>
-            <th>Km</th>
-        </tr>
-        </thead>
-        <tbody>
-        {{#each vehicles}}
-            <tr>
-                <td class="mdl-data-table__cell--non-numeric">{{vehicleType}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{brand}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{model}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{license}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{yearOfManufacture}}</td>
-                <td class="mdl-data-table__cell--non-numeric">{{km}}</td>
-				<td class="mdl-data-table__cell--non-numeric"><a href='maintenance?id={{_id}}'>Show more</a></td>
-            </tr>
-        {{/each}}
-        </tbody>
-    </table>
-
-
-</div>
 </body>
 
 </html>
