@@ -18,7 +18,7 @@
 <body>
     <div id="root">
         {{#if errors}} {{#each errors}}
-            <div>{{msg}}</div>
+        <div>{{msg}}</div>
         {{/each}} {{/if}}
         <!-- Navigation -->
         <div class="demo-layout-transparent mdl-layout mdl-js-layout">
@@ -26,15 +26,16 @@
                 <div class="mdl-layout__header-row">
                     <!-- Title -->
                     <a href="/mygarage" class="logo ">
-                        <span>The Garage App</span>
-                    </a>
+                    <span>The Garage App</span>
+                </a>
                     <!-- Add spacer, to align navigation to the right -->
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation -->
                     <nav class="mdl-navigation">
-                        <a class="mdl-navigation__link" href="/mygarage">MyGarage</a>
-                        <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                        <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                         <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                         <a class="mdl-navigation__link" href="/logout">Logout</a>
                     </nav>
                 </div>
@@ -44,8 +45,9 @@
                 <span class="mdl-layout-title">My Garage</span>
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                     <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                    <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                     <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>

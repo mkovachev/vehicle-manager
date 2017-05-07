@@ -64,20 +64,11 @@ function replacer(key, value) {
 }
 
 //------------------------- VIEWs ---------------
-
-// maintenance - all events per vehicle view
+// maintenance - all events
 router.get('/maintenance', isLoggedIn, function (req, res, next) {
-	// select clicked vehicle TODO
-	const vehicleId = req.query.id;
-	Event.find({
-		"vehicleId": vehicleId
-	}, function (err, events) {
+	Event.find({}, function (err, events) {
 		if (err) {
 			console.log(err);
-		} else if (events.length === 0) {
-			console.log('This vehicle has no events yet, add one now');
-			res.redirect('addevent');
-			return;
 		} else {
 			res.render('maintenance', {
 				layout: false,
@@ -100,9 +91,9 @@ router.get('/mygarage', isLoggedIn, function (req, res, next) {
 		"owner": id
 	}, function (err, vehicles) {
 		if (err) {
-			req.flash('error', err);
+			console.log(err);
 		} else if (vehicles.length === 0) {
-			req.flash('error', 'This user has no vehicles, add one first');
+			console.log('This user has no vehicles, add one first');
 			res.redirect('addvehicle');
 			return;
 		} else {
@@ -129,14 +120,14 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 	const description = req.body.description;
 	const km = req.body.km;
 	const cost = req.body.cost;
-	//const vehicleId = req.body.vehicleId; // TODO
+	const vehicleLicense = req.body.vehicleLicense; // TODO
 
 	// input validation
 	req.checkBody('title', 'title is required').notEmpty();
 	req.checkBody('description', 'description is required').notEmpty();
 	req.checkBody('km', 'km is required').notEmpty();
 	req.checkBody('cost', 'cost is required').notEmpty();
-	//req.checkBody('vehicleId', 'vehicleId is required').notEmpty();
+	req.checkBody('vehicleLicense', 'vehicleLicense is required').notEmpty();
 
 	const errors = req.validationErrors();
 	if (errors) {
@@ -148,7 +139,7 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 			description,
 			km,
 			cost,
-			//vehicleId
+			vehicleLicense
 		});
 		Event.addEvent(newEvent);
 		//vehicle.events.push(newEvent._id); // TODO
@@ -194,14 +185,6 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 		user.vehicles.push(newVehicle._id); // TODO
 		res.redirect('/mygarage');
 		return;
-
-		// not working
-		//User.findByIdAndUpdate(req.session.user.id, function (err, //res) {
-		//	if (err) {
-		//		console.log(err);
-		//	}
-		//	user.vehicles.push(newVehicle);
-		//});
 	}
 });
 

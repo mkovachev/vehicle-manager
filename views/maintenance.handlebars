@@ -14,9 +14,7 @@
 </head>
 
 <body>
-
     <div id="root">
-
         <!-- Navigation -->
         <div class="demo-layout-transparent mdl-layout mdl-js-layout">
             <header class="mdl-layout__header mdl-layout__header--transparent">
@@ -29,9 +27,10 @@
                     <div class="mdl-layout-spacer"></div>
                     <!-- Navigation -->
                     <nav class="mdl-navigation">
-                        <a class="mdl-navigation__link" href="/mygarage">MyGarage</a>
-                        <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                        <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                         <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                         <a class="mdl-navigation__link" href="/logout">Logout</a>
                     </nav>
                 </div>
@@ -41,19 +40,18 @@
                 <span class="mdl-layout-title">My Garage</span>
                 <nav class="mdl-navigation">
                     <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                     <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                    <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                     <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>
         </div>
 
-
-
         <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="data-table">
-
             <thead>
                 <tr>
+                    <th>Ca License</th>
                     <th>Title</th>
                     <th>Description</th>
                     <th>KM</th>
@@ -63,6 +61,7 @@
             <tbody>
                 {{#each events}}
                 <tr>
+                    <td class="mdl-data-table__cell--non-numeric">{{vehicleLicense}}</td>
                     <td class="mdl-data-table__cell--non-numeric">{{title}}</td>
                     <td class="mdl-data-table__cell--non-numeric">{{description}}</td>
                     <td class="mdl-data-table__cell--non-numeric">{{km}}</td>
@@ -71,8 +70,6 @@
                 {{/each}}
             </tbody>
         </table>
-
-
     </div>
 </body>
 
