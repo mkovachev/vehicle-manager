@@ -29,6 +29,14 @@ router.get('/addevent', isLoggedIn, function (req, res) {
 	});
 });
 
+
+// google workshops
+router.get('/workshops', isLoggedIn, function (req, res) {
+    res.render('workshops', {
+        layout: false
+    });
+});
+
 // logout
 router.get('/logout', isLoggedOut, function (req, res) {
 	res.render('home');
