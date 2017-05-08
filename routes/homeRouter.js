@@ -15,24 +15,18 @@ const Event = require('../models/Event');
 function displayItems(foundItemsCollection, err, callback) {
 	let foundItems = [];
 
-				foundItemsCollection.forEach(function(item) {
-					if(item != null) {
-						foundItems.push(item);
-					}
-					
-					else
-					{
-						
-						//foundVehiclesCollection.toArray();
-					}
-					
-				});
-				setTimeout(function() {
-					callback(foundItems);
-				}, 250)	
+	foundItemsCollection.forEach(function (item) {
+		if (item != null) {
+			foundItems.push(item);
+		} else {
+
+			//foundVehiclesCollection.toArray();
+		}
+	});
+	setTimeout(function () {
+		callback(foundItems);
+	}, 250)
 }
-
-
 
 // --------------- Routes ---------------------
 
@@ -89,13 +83,6 @@ function isLoggedOut(req, res, next) {
 		next();
 	}
 };
-// Filtering out properties TODO
-function replacer(key, value) {
-	if (typeof value === Schema.ObjectId) {
-		return undefined;
-	}
-	return value;
-}
 
 //------------------------- VIEWs ---------------
 // maintenance - all events
@@ -103,42 +90,42 @@ router.get('/maintenance', isLoggedIn, function (req, res, next) {
 	const id = req.session.user._id;
 	const user = req.session.user;
 	const UserID = ObjectId(id)
-	MongoClient.connect(url,function(error,db){
+	MongoClient.connect(url, function (error, db) {
 
 		const eventsCollection = db.collection('events');
-		
-		eventsCollection.find({userID: UserID}, function(err, foundEventsCollection) {
-			if(err) {
+
+		eventsCollection.find({
+			userID: UserID
+		}, function (err, foundEventsCollection) {
+			if (err) {
 				console.log(err);
+				req.flash('error_msg', err);
 				return;
-			}
-			else {
-				displayItems(foundEventsCollection, err, function(foundItems) {
-						
-						console.log(foundItems);
-						
-						if (err) {
-							console.log(err);
-						} 
-						else if (foundEventsCollection.length === 0) 
-						{
-							console.log('This user has no events, add one first');
-							res.redirect('addevents');
-							return;
-						} 
-						else 
-						{
-							res.render('maintenance', {
-								layout: false,
-								events: foundItems,
-								
-						});
-						
+			} else {
+				displayItems(foundEventsCollection, err, function (foundItems) {
+
+					console.log(foundItems);
+
+					if (err) {
+						console.log(err);
+						req.flash('error_msg', err);
+					} else if (foundEventsCollection.length === 0) {
+						console.log('This user has no events, add one first');
+						req.flash('error_msg', 'This user has no events, add one now');
+						res.redirect('addevents');
 						return;
-						
-						}
-						
-					})
+					} else {
+						res.render('maintenance', {
+							layout: false,
+							events: foundItems,
+
+						});
+
+						return;
+
+					}
+
+				})
 			}
 		})
 	});
@@ -149,51 +136,44 @@ router.get('/mygarage', isLoggedIn, function (req, res, next) {
 	const id = req.session.user._id;
 	const user = req.session.user;
 	const UserID = ObjectId(id)
-	MongoClient.connect(url,function(error,db){
+	MongoClient.connect(url, function (error, db) {
 
-		if(error){
-			console.log("Unable to connect to mongo server ERROR : " ,error);
-		} 
-		else 
-		{
+		if (error) {
+			console.log("Unable to connect to mongo server ERROR : ", error);
+		} else {
 			const vehicles = db.collection('vehicles');
-			
+
 			vehicles.find({
-				ownerID : UserID
-			}, 
-			function (err, foundVehiclesCollection){
-				
-				displayItems(foundVehiclesCollection, err, function(foundItems) {
-					
+					ownerID: UserID
+				},
+				function (err, foundVehiclesCollection) {
 
-					console.log(foundItems);
-						
-					if (err) {
-						console.log(err);
-					} 
-					else if (foundVehiclesCollection.length === 0) 
-					{
-						console.log('This user has no vehicles, add one first');
-						res.redirect('addvehicle');
-						return;
-					} 
-					else 
-					{
-						res.render('mygarage', {
-							layout: false,
-							vehicles: foundItems,
-							
-					});
-					
-					return;
-					
-					}
-						
+					displayItems(foundVehiclesCollection, err, function (foundItems) {
+
+						console.log(foundItems);
+
+						if (err) {
+							console.log(err);
+							req.flash('error_msg', err);
+						} else if (foundVehiclesCollection.length === 0) {
+							console.log('This user has no vehicles, add one now');
+							req.flash('error_msg', 'This user has no vehicles, add one now');
+							res.redirect('addvehicle');
+							return;
+						} else {
+							res.render('mygarage', {
+								layout: false,
+								vehicles: foundItems,
+
+							});
+
+							return;
+
+						}
+
 					})
-				
 
-				
-			});
+				});
 		}
 	});
 });
@@ -220,9 +200,10 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 	req.checkBody('vehicleLicense', 'vehicleLicense is required').notEmpty();
 
 	const errors = req.validationErrors();
-	MongoClient.connect(url,function(error,db){
+	MongoClient.connect(url, function (error, db) {
 		if (errors) {
 			console.log(errors);
+			req.flash('error_msg', errors);
 			return;
 		} else {
 			const newEvent = new Event(
@@ -232,29 +213,28 @@ router.post('/addevent', isLoggedIn, function (req, res) {
 				cost,
 				vehicleLicense,
 				UserID
-				
+
 			);
-			
+
 			const eventsCollection = db.collection('events')
-			eventsCollection.insertOne(newEvent, function(err, addedEvent) {
-				
-				if(err) {
+			eventsCollection.insertOne(newEvent, function (err, addedEvent) {
+
+				if (err) {
 					console.log(err);
+					req.flash('error_msg', err);
 					return;
-				}
-				else {
+				} else {
 					console.log(addedEvent);
+					req.flash('success_msg', addedEvent);
 					return;
 				}
 			})
-			
-			
 			res.redirect('/maintenance');
 			return;
 		}
 	})
 });
-	
+
 
 // add vehicle
 router.post('/addvehicle', isLoggedIn, function (req, res) {
@@ -276,39 +256,36 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 
 	const errors = req.validationErrors();
 
-		MongoClient.connect(url,function(error,db){
-		
-			if(error){
-				console.log("Unable to connect to mongo server ERROR : " ,error);
-			} 
-			else 
-			{
-				
-				console.log("Connection sucesful to ", url);
-				const userID = ObjectId(user._id);
-				const vehiclesCollection = db.collection('vehicles');
-				const users = db.collection('users');
-				let newVehicle = new Vehicle(brand, model, license, yearOfManufacture, km, userID);
-				
-				console.log(newVehicle);
-				
-				vehiclesCollection.insert(newVehicle,  function (err, result) {
-					if (err) {
-						console.log("ERROR ", err);
-						return;
-					}
-					 else {
-						console.log("SUCCESS INSERTED in to vehicles collection _is are ", result)
-						res.redirect('/mygarage');
-						return;
-					}
-				   
-				});	  
-		 
-			}
-		});
-	
+	MongoClient.connect(url, function (error, db) {
 
+		if (error) {
+			console.log("Unable to connect to mongo server ERROR : ", error);
+		} else {
+
+			console.log("Connection successful to ", url);
+			const userID = ObjectId(user._id);
+			const vehiclesCollection = db.collection('vehicles');
+			const users = db.collection('users');
+			let newVehicle = new Vehicle(brand, model, license, yearOfManufacture, km, userID);
+
+			console.log(newVehicle);
+
+			vehiclesCollection.insert(newVehicle, function (err, result) {
+				if (err) {
+					console.log("ERROR ", err);
+					req.flash('error_msg', err);
+					return;
+				} else {
+					console.log("SUCCESS INSERTED in to vehicles collection _is are ", result);
+					req.flash('success_msg', result);
+					res.redirect('/mygarage');
+					return;
+				}
+
+			});
+
+		}
+	});
 });
 
 // Register
@@ -327,38 +304,36 @@ router.post('/', function (req, res) {
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
-	MongoClient.connect(url,function(error,db){
+	MongoClient.connect(url, function (error, db) {
 
-    if(error){
-        console.log("Unable to connect to mongo server ERROR : " ,error);
-    }else {
-        console.log("Connection sucesful to ", url);
+		if (error) {
+			console.log("Unable to connect to mongo server ERROR : ", error);
+		} else {
+			console.log("Connection successful to ", url);
 
-        var collection = db.collection('users');
-		bcrypt.genSalt(10, function (err, salt) {
-		bcrypt.hash(password, salt, function (err, hash) {
-			password = hash;
-			let some = new User(username, email, password);
-			console.log(some);
-	        collection.insert(some, function (err, result) {
-	            if (error) {
-	                console.log("ERROR ", error);
-					return;
-	            }
-	            else {
-	                console.log("SUCCESS INSERTED in to users collection _is are ", result.length, result)
-					console.log("Registered successfully!");
-					res.redirect('/');
-					return;
-	            }
-	        });
-		});
-	}); 
- }
-})
-
-
-
+			var collection = db.collection('users');
+			bcrypt.genSalt(10, function (err, salt) {
+				bcrypt.hash(password, salt, function (err, hash) {
+					password = hash;
+					let some = new User(username, email, password);
+					console.log(some);
+					collection.insert(some, function (err, result) {
+						if (error) {
+							console.log("ERROR ", error);
+							req.flash('error_msg', err);
+							return;
+						} else {
+							console.log("SUCCESS INSERTED in to users collection _is are ", result.length, result)
+							console.log('Registered successfully!');
+							req.flash('success_msg', 'Registered successfully!');
+							res.redirect('/');
+							return;
+						}
+					});
+				});
+			});
+		}
+	})
 });
 
 // Login
@@ -383,17 +358,20 @@ router.post('/mygarage', function (req, res) {
 			}, function (err, user) {
 				if (err) {
 					console.log(err);
+					req.flash('error_msg', err);
 					return;
 				}
 				if (!user || user === null) {
-					console.log('user does not exist');
+					console.log('This user does not exist yet, please register first');
+					req.flash('error_msg', 'This user does not exist yet, please register first');
 					res.redirect('/');
 					return;
 				}
 
 				bcrypt.compare(loginParams.password, user.password, function (err, success) {
 					if (err) {
-						console.log('password is incorrect!');
+						console.log('Password is incorrect!');
+						req.flash('error_msg', 'Password is incorrect!');
 						res.redirect('/');
 						return;
 					}
@@ -401,7 +379,8 @@ router.post('/mygarage', function (req, res) {
 					if (success) {
 						req.session.user = user;
 						res.redirect('/mygarage');
-						console.log('logged in successfully!');
+						console.log('Logged in successfully!');
+						req.flash('success_msg', 'Logged in successfully!');
 						return;
 					}
 				});
