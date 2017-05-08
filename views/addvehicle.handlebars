@@ -17,7 +17,11 @@
 
 <body>
     <div id="root">
-
+        {{#if error_msg}}
+        <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">{{error_msg}}</div>
+        {{/if}} {{#if success_msg}}
+        <div aria-live="assertive" aria-atomic="true" aria-relevant="text" class="mdl-snackbar mdl-js-snackbar">{{success_msg}}</div>
+        {{/if}}
         <!-- Navigation -->
         <div class="demo-layout-transparent mdl-layout mdl-js-layout">
             <header class="mdl-layout__header mdl-layout__header--transparent">
