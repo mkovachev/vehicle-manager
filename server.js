@@ -61,7 +61,14 @@ app.use(expressValidator({
   }
 }));
 
+// flash
 app.use(flash());
+// global vars for flash
+app.use(function (req, res, next) {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  next();
+});
 
 // routes
 const home = require('./routes/homeRouter');
