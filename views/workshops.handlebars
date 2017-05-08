@@ -17,56 +17,55 @@
 
 <body>
 
-<div id="root">
-
-    <!-- Navigation -->
-    <div class="demo-layout-transparent mdl-layout mdl-js-layout">
-        <header class="mdl-layout__header mdl-layout__header--transparent">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <a href="/mygarage" class="logo ">
+    <div id="root">
+        <!-- Navigation -->
+        <div class="demo-layout-transparent mdl-layout mdl-js-layout">
+            <header class="mdl-layout__header mdl-layout__header--transparent">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <a href="/mygarage" class="logo ">
                     <span>The Garage App</span>
                 </a>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-                <!-- Navigation -->
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- Navigation -->
+                    <nav class="mdl-navigation">
+                        <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                        <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
+                        <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
+                        <a class="mdl-navigation__link" href="/workshops">Find a workshop</a>
+                        <a class="mdl-navigation__link" href="/addevent">Add Event</a>
+                        <a class="mdl-navigation__link" href="/logout">Logout</a>
+                    </nav>
+                </div>
+            </header>
+            <!-- Side Navigation -->
+            <div class="mdl-layout__drawer">
+                <span class="mdl-layout-title">My Garage</span>
                 <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="/mygarage">MyGarage</a>
-                    <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
+                    <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
+                    <a class="mdl-navigation__link" href="/maintenance">Maintenance Overview</a>
                     <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
                     <a class="mdl-navigation__link" href="/workshops">Find a workshop</a>
+                    <a class="mdl-navigation__link" href="/addevent">Add Event</a>
                     <a class="mdl-navigation__link" href="/logout">Logout</a>
                 </nav>
             </div>
-        </header>
-        <!-- Side Navigation -->
-        <div class="mdl-layout__drawer">
-            <span class="mdl-layout-title">My Garage</span>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="/mygarage">My Garage</a>
-                <a class="mdl-navigation__link" href="/maintenance">Maintenance</a>
-                <a class="mdl-navigation__link" href="/addvehicle">Add Vehicle</a>
-                <a class="mdl-navigation__link" href="/workshops">Find a workshop</a>
-                <a class="mdl-navigation__link" href="/logout">Logout</a>
-            </nav>
         </div>
-    </div>
 
-    <div class="demo-card-event mdl-card mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-card--expand">
-            <h4>
-                Need a car repair?<br>
-                Navigate and<br>
-                right click to update.
-            </h4>
+        <div class="demo-card-event mdl-card mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-card--expand">
+                <h4>
+                    Need a car repair?<br> Navigate and<br> right click to update.
+                </h4>
+            </div>
         </div>
-    </div>
 
-    <div id="map"></div>
+        <div id="map"></div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7WpDvQSWQlcqXKXPHCzWP8keNn6_Vfq8&libraries=places&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7WpDvQSWQlcqXKXPHCzWP8keNn6_Vfq8&libraries=places&callback=initMap"
             async defer></script>
-</div>
+    </div>
 </body>
 
 </html>
