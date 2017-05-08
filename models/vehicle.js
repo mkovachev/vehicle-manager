@@ -1,6 +1,5 @@
 class VehicleClass {
-  constructor(brand, model, license, yearOfManufacture, km, ownerID) 
-  {
+  constructor(brand, model, license, yearOfManufacture, km, ownerID) {
     this.brand = brand;
     this.model = model;
     this.license = license;
@@ -8,6 +7,6 @@ class VehicleClass {
     this.km = km;
     this.ownerID = ownerID;
 
-  }  
+  }
 }
- module.exports = VehicleClass;
+module.exports = VehicleClass;
