@@ -304,6 +304,13 @@ router.post('/', function (req, res) {
 	req.checkBody('password', 'Password is required').notEmpty();
 	req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
+	const errors = req.validationErrors();
+	if (errors) {
+		console.log(errors);
+		res.redirect('/');
+		return;
+	}
+
 	MongoClient.connect(url, function (error, db) {
 
 		if (error) {
