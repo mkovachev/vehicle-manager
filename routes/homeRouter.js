@@ -19,7 +19,6 @@ function displayItems(foundItemsCollection, err, callback) {
 		if (item != null) {
 			foundItems.push(item);
 		} else {
-
 			//foundVehiclesCollection.toArray();
 		}
 	});
@@ -247,6 +246,7 @@ router.post('/addvehicle', isLoggedIn, function (req, res) {
 	const km = req.body.km;
 
 	const user = req.session.user;
+
 	// input validation
 	req.checkBody('brand', 'brand is required').notEmpty();
 	req.checkBody('model', 'model is required').notEmpty();
