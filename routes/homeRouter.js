@@ -346,6 +346,11 @@ router.post('/mygarage', function (req, res) {
 	req.checkBody('password', 'model is required').notEmpty();
 
 	const errors = req.validationErrors();
+	if (errors) {
+		console.log(errors);
+		res.redirect('/');
+		return;
+	}
 
 	MongoClient.connect(url, function (error, db) {
 
