@@ -143,8 +143,8 @@ router.get('/mygarage', isLoggedIn, function (req, res, next) {
 			const vehicles = db.collection('vehicles');
 
 			vehicles.find({
-					ownerID: UserID
-				},
+				ownerID: UserID
+			},
 				function (err, foundVehiclesCollection) {
 
 					displayItems(foundVehiclesCollection, err, function (foundItems) {
